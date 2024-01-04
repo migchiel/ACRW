@@ -13,6 +13,13 @@ ACRWResource class >> apiToken [
 	^ Smalltalk os environment at: 'acapi_token'
 ]
 
+{ #category : #'as yet unclassified' }
+ACRWResource class >> fingerPrint [
+
+
+^ self apiToken last: 4
+]
+
 { #category : #accessing }
 ACRWResource >> acapi [
 

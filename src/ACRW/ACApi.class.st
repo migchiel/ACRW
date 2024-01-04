@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'url',
 		'apiKey',
-		'connection'
+		'connection',
+		'apiMapper'
 	],
 	#category : #'ACRW-Core'
 }
@@ -49,23 +50,36 @@ ACApi class >> withApiKey: anApiKeyString [
 { #category : #accessing }
 ACApi >> getApiKeys [
 
-	^ connection
-		  path: '/user/apikey';
-		  method: #GET;
-		  forJsonREST;execute 
+	apiMapper configure: connection for: #getApiKeys.
+	^ connection execute
+]
+
+{ #category : #accessing }
+ACApi >> getProducts [
+
+	apiMapper configure: connection for: #getProducts.
+	^ connection execute
+]
+
+{ #category : #accessing }
+ACApi >> getSubProducts [
+
+	apiMapper configure: connection for: #getSubProducts.
+	^ connection execute
 ]
 
 { #category : #initialization }
 ACApi >> initialize [
 
+	apiMapper := ACRequestMapper new.
 	connection := ZnClient new
 		              systemPolicy;
 		              logLevel: 3;
 		              numberOfRetries: 3;
 		              autoResetEntityMethods: #( HEAD DELETE GET );
 		              logToTranscript;
-										setBearerAuthentication: apiKey;
-										url: url
+		              setBearerAuthentication: apiKey;
+		              url: url
 ]
 
 { #category : #initialization }

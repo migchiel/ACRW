@@ -27,10 +27,23 @@ ACApiTest >> setUp [
 ]
 
 { #category : #tests }
-ACApiTest >> testPlaceHolder [
+ACApiTest >> testGetApiKeys [
 
 	| keys |
 	keys := acapi getApiKeys.
-	self assert: (keys anySatisfy: [ :key |
-			 key initials = (ACRWResource apiToken last: 4) ])
+	self assert:
+		(keys anySatisfy: [ :key | key initials = ACRWResource fingerPrint ])
+]
+
+{ #category : #tests }
+ACApiTest >> testGetProducts [
+
+	self assert: acapi getProducts size equals: 2
+		
+]
+
+{ #category : #test }
+ACApiTest >> testGetSubProducts [
+
+	self assert: acapi getSubProducts size equals: 2
 ]
