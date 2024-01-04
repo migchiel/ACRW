@@ -72,6 +72,21 @@ ACConnection >> performRequest: anApiEndPoint [
 ]
 
 { #category : #'as yet unclassified' }
+ACConnection >> performRequest: anApiEndPoint with: aCollection [
+
+	| responses |
+	responses := OrderedCollection new.
+	requestHelper configure: connection for: anApiEndPoint.
+	responses := aCollection collect: [ :item |
+		             requestHelper
+			             prepareContent: item
+			             for: anApiEndPoint
+			             andConnection: connection.
+		             self executeRequest ].
+	^ responses
+]
+
+{ #category : #'as yet unclassified' }
 ACConnection >> recoverFromApiLimit [
 
 	1 to: self apiLimitDelay do: [ :each |

@@ -8,53 +8,79 @@ Class {
 }
 
 { #category : #accessing }
+ACRequestHelper >> apiCreateProducts [
+
+	^ {
+		  [ :connection |
+		  connection
+			  path: '/user/product';
+			  method: #POST;
+			  forJsonREST ] .
+		  [ :connection :content | connection contents: content ] }
+]
+
+{ #category : #accessing }
+ACRequestHelper >> apiDeleteProducts [
+
+	^ {
+		  [ :connection |
+		  connection
+			  path: '/user/product';
+			  method: #DELETE;
+			  contentReader: nil;
+			  contentWriter: nil;
+			  accept: ZnMimeType any ].
+		  [ :connection :aProduct | connection addPath: aProduct id asString ] }
+]
+
+{ #category : #accessing }
 ACRequestHelper >> apiGetApiKeys [
 
-	^ [ :connection |
+	^ {[ :connection |
 	  connection
 		  path: '/user/apikey';
 		  method: #GET;
-		  forJsonREST ]
+		  forJsonREST ]}
 ]
 
 { #category : #accessing }
 ACRequestHelper >> apiGetProductTypes [
 
-	^ [ :connection |
+	^ {[ :connection |
 	  connection
 		  path: '/user/product-type';
 		  method: #GET;
-		  forJsonREST ]
+		  forJsonREST ]}
 ]
 
 { #category : #accessing }
 ACRequestHelper >> apiGetProducts [
 
-	^ [ :connection |
+	^ {[ :connection |
 	  connection
 		  path: '/user/product';
 		  method: #GET;
-		  forJsonREST ]
+		  forJsonREST ]}
 ]
 
 { #category : #accessing }
 ACRequestHelper >> apiGetSubProductTypes [
 
-	^ [ :connection |
+	^ {[ :connection |
 	  connection
 		  path: '/user/sub-product-type';
 		  method: #GET;
-		  forJsonREST ]
+		  forJsonREST ]}
 ]
 
 { #category : #accessing }
 ACRequestHelper >> apiGetSubProducts [
 
-	^ [ :connection |
+	^ {[ :connection |
 	  connection
 		  path: '/api/sub-product';
 		  method: #GET;
-		  forJsonREST ]
+		  forJsonREST ]}
 ]
 
 { #category : #'as yet unclassified' }
@@ -72,7 +98,7 @@ ACRequestHelper >> configurationBlockFor: apiCall [
 { #category : #'as yet unclassified' }
 ACRequestHelper >> configure: aConnection for: anApiEndPoint [
 
-	(requests at: anApiEndPoint) value: aConnection 
+	(requests at: anApiEndPoint) first value: aConnection
 ]
 
 { #category : #'as yet unclassified' }
@@ -93,4 +119,10 @@ ACRequestHelper >> initialize [
 		requests
 			at: apiEndPoint uncapitalized
 			put: (self configurationBlockFor: endPoint) ]
+]
+
+{ #category : #'as yet unclassified' }
+ACRequestHelper >> prepareContent: item for: anApiEndPoint andConnection: aConnection [
+
+	(requests at: anApiEndPoint) second value: aConnection value: item
 ]

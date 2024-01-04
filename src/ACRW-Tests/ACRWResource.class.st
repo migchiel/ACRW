@@ -26,7 +26,7 @@ ACRWResource >> acapi [
 	^ acapi
 ]
 
-{ #category : #setup }
+{ #category : #running }
 ACRWResource >> setUp [
 
 	super setUp.

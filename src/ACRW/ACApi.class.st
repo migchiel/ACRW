@@ -51,6 +51,18 @@ ACApi >> connection [
 ]
 
 { #category : #accessing }
+ACApi >> createProducts: aProductCollection [
+
+	^ connection performRequest: #createProducts with: aProductCollection 
+]
+
+{ #category : #accessing }
+ACApi >> deleteProducts: aProductCollection [
+
+	^ connection performRequest: #deleteProducts with: aProductCollection
+]
+
+{ #category : #accessing }
 ACApi >> getApiKeys [
 
 	 

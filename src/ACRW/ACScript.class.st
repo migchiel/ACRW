@@ -4,7 +4,7 @@ Class {
 	#category : #'ACRW-Scripts'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #scripting }
 ACScript >> getAllApiKeys [
 
 	<script: 'self new getAllApiKeys'>
@@ -13,7 +13,7 @@ ACScript >> getAllApiKeys [
 	(acapi getApiKeys collect: #name) inspect
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #scripting }
 ACScript >> getAllProductTypes [
 
 	<script: 'self new getAllProductTypes'>
@@ -22,7 +22,7 @@ ACScript >> getAllProductTypes [
 	(acapi getProductTypes collect: #name) inspect
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #scripting }
 ACScript >> getAllProducts [
 
 	<script: 'self new getAllProducts'>
@@ -31,7 +31,7 @@ ACScript >> getAllProducts [
 	(acapi getProducts collect: #name) inspect
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #scripting }
 ACScript >> getAllSubProducts [
 
 	<script: 'self new getAllSubProducts'>

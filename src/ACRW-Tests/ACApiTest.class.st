@@ -16,6 +16,17 @@ ACApiTest class >> resources [
 	^ { ACRWResource }
 ]
 
+{ #category : #tests }
+ACApiTest >> newProduct [
+
+	^ NeoJSONObject new
+		  name: 'Test-Product-' , UUID new asString;
+		  description: 'TeSt-PrOduCt';
+		  type: (NeoJSONObject new
+				   type: 'Web Application';
+				   id: 1)
+]
+
 { #category : #running }
 ACApiTest >> setUp [
 
@@ -24,6 +35,16 @@ ACApiTest >> setUp [
 	"Put here a common initialization logic for tests"
 	self timeLimit: 900 seconds.
 	 acapi := ACRWResource current acapi
+]
+
+{ #category : #tests }
+ACApiTest >> testCreateDeleteProducts [
+
+	| testCollection testResults |
+	testCollection := Array with: self newProduct.
+	testResults := acapi createProducts: testCollection.
+	self assert: testResults size equals: 1.
+	acapi deleteProducts: testResults
 ]
 
 { #category : #tests }
