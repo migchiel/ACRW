@@ -32,7 +32,16 @@ ACApiTest >> testGetApiKeys [
 	| keys |
 	keys := acapi getApiKeys.
 	self assert:
-		(keys anySatisfy: [ :key | key initials = ACRWResource fingerPrint ])
+		(keys anySatisfy: [ :key | key initials = ACRWResource apiKeyfingerPrint ])
+]
+
+{ #category : #tests }
+ACApiTest >> testGetApiKeysHttp429 [
+
+	| keys |
+	10 timesRepeat: [ keys := acapi getApiKeys ].
+	self assert:
+		(keys anySatisfy: [ :key | key initials = ACRWResource apiKeyfingerPrint ])
 ]
 
 { #category : #tests }

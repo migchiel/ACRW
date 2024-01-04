@@ -1,5 +1,5 @@
 Class {
-	#name : #ACRequestMapper,
+	#name : #ACRequestHelper,
 	#superclass : #Object,
 	#instVars : [
 		'requests'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #accessing }
-ACRequestMapper >> apiGetApiKeys [
+ACRequestHelper >> apiGetApiKeys [
 
 	^ [ :connection |
 	  connection
@@ -18,7 +18,7 @@ ACRequestMapper >> apiGetApiKeys [
 ]
 
 { #category : #accessing }
-ACRequestMapper >> apiGetProducts [
+ACRequestHelper >> apiGetProducts [
 
 	^ [ :connection |
 	  connection
@@ -28,7 +28,7 @@ ACRequestMapper >> apiGetProducts [
 ]
 
 { #category : #accessing }
-ACRequestMapper >> apiGetSubProducts [
+ACRequestHelper >> apiGetSubProducts [
 
 	^ [ :connection |
 	  connection
@@ -38,13 +38,13 @@ ACRequestMapper >> apiGetSubProducts [
 ]
 
 { #category : #'as yet unclassified' }
-ACRequestMapper >> configure: aConnection for: anApiEndPoint [
+ACRequestHelper >> configure: aConnection for: anApiEndPoint [
 
 	(requests at: anApiEndPoint) value: aConnection 
 ]
 
 { #category : #'as yet unclassified' }
-ACRequestMapper >> initialize [
+ACRequestHelper >> initialize [
 
 	| apiCalls |
 	requests := Dictionary new.

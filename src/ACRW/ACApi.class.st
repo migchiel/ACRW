@@ -2,10 +2,7 @@ Class {
 	#name : #ACApi,
 	#superclass : #Object,
 	#instVars : [
-		'url',
-		'apiKey',
-		'connection',
-		'apiMapper'
+		'connection'
 	],
 	#category : #'ACRW-Core'
 }
@@ -15,10 +12,10 @@ ACApi class >> connectTo: aUrl withApiKey: anApiKey [
 
 	| acapi |
 	acapi := self basicNew.
-	acapi
-		setUrl: aUrl;
-		setApiKey: anApiKey;
-		initialize.
+	acapi initialize.
+	acapi connection
+		url: aUrl;
+		apiKey: anApiKey.
 	^ acapi
 ]
 
@@ -48,48 +45,33 @@ ACApi class >> withApiKey: anApiKeyString [
 ]
 
 { #category : #accessing }
+ACApi >> connection [ 
+
+	^ connection
+]
+
+{ #category : #accessing }
 ACApi >> getApiKeys [
 
-	apiMapper configure: connection for: #getApiKeys.
-	^ connection execute
+	 
+	^ connection performRequest: #getApiKeys
 ]
 
 { #category : #accessing }
 ACApi >> getProducts [
 
-	apiMapper configure: connection for: #getProducts.
-	^ connection execute
+	^ connection performRequest: #getProducts.
 ]
 
 { #category : #accessing }
 ACApi >> getSubProducts [
 
-	apiMapper configure: connection for: #getSubProducts.
-	^ connection execute
+	^ connection performRequest: #getSubProducts.
+
 ]
 
 { #category : #initialization }
 ACApi >> initialize [
 
-	apiMapper := ACRequestMapper new.
-	connection := ZnClient new
-		              systemPolicy;
-		              logLevel: 3;
-		              numberOfRetries: 3;
-		              autoResetEntityMethods: #( HEAD DELETE GET );
-		              logToTranscript;
-		              setBearerAuthentication: apiKey;
-		              url: url
-]
-
-{ #category : #initialization }
-ACApi >> setApiKey: anApiKeyString [
-
-	apiKey := anApiKeyString 
-]
-
-{ #category : #initialization }
-ACApi >> setUrl: anUrl [
-
-	url := anUrl  
+	connection := ACConnection new
 ]

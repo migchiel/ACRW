@@ -8,16 +8,16 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ACRWResource class >> apiToken [
-
-	^ Smalltalk os environment at: 'acapi_token'
-]
-
-{ #category : #'as yet unclassified' }
-ACRWResource class >> fingerPrint [
+ACRWResource class >> apiKeyfingerPrint [
 
 
 ^ self apiToken last: 4
+]
+
+{ #category : #'as yet unclassified' }
+ACRWResource class >> apiToken [
+
+	^ Smalltalk os environment at: 'acapi_token'
 ]
 
 { #category : #accessing }
