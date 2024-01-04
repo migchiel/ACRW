@@ -6,3 +6,10 @@ Class {
 	#superclass : #TestCase,
 	#category : #'ACRW-Tests-Core'
 }
+
+{ #category : #tests }
+ACApiTest >> testPlaceHolder [
+
+
+	self assert: 1 equals: 1
+]
