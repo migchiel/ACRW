@@ -44,11 +44,23 @@ ACApiTest >> testGetApiKeysHttp429 [
 		(keys anySatisfy: [ :key | key initials = ACRWResource apiKeyfingerPrint ])
 ]
 
+{ #category : #test }
+ACApiTest >> testGetProductTypes [
+
+	self assert: acapi getProductTypes size equals: 6
+]
+
 { #category : #tests }
 ACApiTest >> testGetProducts [
 
 	self assert: acapi getProducts size equals: 2
 		
+]
+
+{ #category : #test }
+ACApiTest >> testGetSubProductTypes [
+
+	self assert: acapi getSubProductTypes size equals: 10
 ]
 
 { #category : #test }

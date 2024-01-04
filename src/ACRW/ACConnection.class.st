@@ -27,6 +27,16 @@ ACConnection >> connection [
 	^ connection
 ]
 
+{ #category : #initialization }
+ACConnection >> createHTTPClient [
+
+	^ ZnClient new
+		  systemPolicy;
+		  logLevel: 3;
+		  autoResetEntityMethods: #( HEAD DELETE GET );
+		  logToTranscript
+]
+
 { #category : #'as yet unclassified' }
 ACConnection >> executeRequest [
 
@@ -50,14 +60,8 @@ ACConnection >> executeRequest [
 { #category : #initialization }
 ACConnection >> initialize [
 
-requestHelper := ACRequestHelper new.
-	connection := ZnClient new
-		              systemPolicy;
-		              logLevel: 3;
-		              numberOfRetries: 3;
-		              autoResetEntityMethods: #( HEAD DELETE GET );
-		              logToTranscript;
-		              yourself
+	requestHelper := ACRequestHelper new.
+	connection := self createHTTPClient
 ]
 
 { #category : #'as yet unclassified' }

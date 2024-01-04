@@ -58,9 +58,21 @@ ACApi >> getApiKeys [
 ]
 
 { #category : #accessing }
+ACApi >> getProductTypes [
+
+	^ connection performRequest: #getProductTypes
+]
+
+{ #category : #accessing }
 ACApi >> getProducts [
 
 	^ connection performRequest: #getProducts.
+]
+
+{ #category : #accessing }
+ACApi >> getSubProductTypes [
+
+	^ connection performRequest: #getSubProductTypes
 ]
 
 { #category : #accessing }
