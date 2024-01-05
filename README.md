@@ -18,11 +18,29 @@ The Pharo installer for all the supported OS's can be found here: https://pharo.
 
 ## Installation
 
-You can load the ACRW code into Pharo using Metacello
+You can load the ACRW code into Pharo using Metacello. The script below will load everything, including the tests and script examples.
 
 ```Smalltalk
 Metacello new
   repository: 'github://migchiel/ACRW/src';
   baseline: 'ACRW';
   load.
+```
+
+If you want to load the minimal code base you can use this script.
+
+```Smalltalk
+Metacello new
+  repository: 'github://migchiel/ACRW/src';
+  baseline: 'ACRW';
+  load: 'Core'
+```
+
+If you want to load the minimal code base and the example scripts you can use this script.
+
+```Smalltalk
+Metacello new
+  repository: 'github://migchiel/ACRW/src';
+  baseline: 'ACRW';
+  load: 'Scripting'
 ```
