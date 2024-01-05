@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+ACApi class >> apiTokenFromEnvironment [
+
+	^ Smalltalk os environment at: 'acapi_token'
+]
+
+{ #category : #'as yet unclassified' }
 ACApi class >> connectTo: aUrl withApiKey: anApiKey [
 
 	| acapi |
@@ -34,8 +40,9 @@ ACApi class >> defaultArmorCodeInstance [
 { #category : #'instance creation' }
 ACApi class >> new [
 
-	self error:
-		'Please use ''connectUsingApiKey:'' or ''connectTo: withApiKey:'''
+	^ self
+		  connectTo: self defaultArmorCodeInstance
+		  withApiKey: self apiTokenFromEnvironment
 ]
 
 { #category : #'as yet unclassified' }

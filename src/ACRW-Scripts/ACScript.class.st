@@ -9,7 +9,7 @@ ACScript >> getAllApiKeys [
 
 	<script: 'self new getAllApiKeys'>
 	| acapi |
-	acapi := ACApi withApiKey: ACRWResource apiToken.
+	acapi := ACApi new.
 	(acapi getApiKeys collect: #name) inspect
 ]
 
@@ -18,7 +18,7 @@ ACScript >> getAllProductTypes [
 
 	<script: 'self new getAllProductTypes'>
 	| acapi |
-	acapi := ACApi withApiKey: ACRWResource apiToken.
+	acapi := ACApi new.
 	(acapi getProductTypes collect: #name) inspect
 ]
 
@@ -27,7 +27,7 @@ ACScript >> getAllProducts [
 
 	<script: 'self new getAllProducts'>
 	| acapi |
-	acapi := ACApi withApiKey: ACRWResource apiToken.
+	acapi := ACApi new.
 	(acapi getProducts collect: #name) inspect
 ]
 
@@ -36,6 +36,6 @@ ACScript >> getAllSubProducts [
 
 	<script: 'self new getAllSubProducts'>
 	| acapi |
-	acapi := ACApi withApiKey: ACRWResource apiToken.
+	acapi := ACApi new.
 	(acapi getSubProducts collect: #name) inspect
 ]

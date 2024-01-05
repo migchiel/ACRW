@@ -10,14 +10,7 @@ Class {
 { #category : #'as yet unclassified' }
 ACRWResource class >> apiKeyfingerPrint [
 
-
-^ self apiToken last: 4
-]
-
-{ #category : #'as yet unclassified' }
-ACRWResource class >> apiToken [
-
-	^ Smalltalk os environment at: 'acapi_token'
+	^ ACApi apiTokenFromEnvironment last: 4
 ]
 
 { #category : #accessing }
@@ -30,5 +23,5 @@ ACRWResource >> acapi [
 ACRWResource >> setUp [
 
 	super setUp.
-	acapi := ACApi withApiKey: self class apiToken
+	acapi := ACApi new
 ]
