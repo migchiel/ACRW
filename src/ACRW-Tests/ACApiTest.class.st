@@ -54,6 +54,18 @@ ACApiTest >> testCreateDeleteProducts [
 ]
 
 { #category : #test }
+ACApiTest >> testCreateProducts [
+
+	self testCreateDeleteProducts 
+]
+
+{ #category : #test }
+ACApiTest >> testDeleteProducts [
+
+	self testCreateDeleteProducts 
+]
+
+{ #category : #test }
 ACApiTest >> testGetApiKeys [
 
 	| keys |
