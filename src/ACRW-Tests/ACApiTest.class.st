@@ -37,10 +37,7 @@ ACApiTest >> newProductDescription [
 ACApiTest >> setUp [
 
 	super setUp.
-
-	"Put here a common initialization logic for tests"
-	self timeLimit: 900 seconds.
-	 acapi := ACRWResource current acapi
+	acapi := ACRWResource current acapi
 ]
 
 { #category : #test }

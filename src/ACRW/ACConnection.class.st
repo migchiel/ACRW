@@ -33,6 +33,7 @@ ACConnection >> createHTTPClient [
 	^ ZnClient new
 		  systemPolicy;
 		  logLevel: 3;
+			 signalProgress: true; 
 		  autoResetEntityMethods: #( HEAD DELETE GET );
 		  logToTranscript
 ]
@@ -60,30 +61,26 @@ ACConnection >> executeRequest [
 { #category : #initialization }
 ACConnection >> initialize [
 
-	requestHelper := ACRequestHelper new.
-	connection := self createHTTPClient
+	connection := self createHTTPClient.
+	requestHelper := ACRequestHelper for: connection
 ]
 
 { #category : #'as yet unclassified' }
 ACConnection >> performRequest: anApiEndPoint [
 
-	requestHelper configure: connection for: anApiEndPoint.
+	requestHelper configureConnectionFor: anApiEndPoint.
 	^ self executeRequest
 ]
 
 { #category : #'as yet unclassified' }
 ACConnection >> performRequest: anApiEndPoint with: aCollection [
 
-	| responses |
-	responses := OrderedCollection new.
-	requestHelper configure: connection for: anApiEndPoint.
-	responses := aCollection collect: [ :item |
+	requestHelper configureConnectionFor: anApiEndPoint.
+	^ aCollection collect: [ :item |
 		             requestHelper
-			             prepareContent: item
-			             for: anApiEndPoint
-			             andConnection: connection.
-		             self executeRequest ].
-	^ responses
+			             prepareWith: item
+			             for: anApiEndPoint.
+		             self executeRequest ]
 ]
 
 { #category : #'as yet unclassified' }
