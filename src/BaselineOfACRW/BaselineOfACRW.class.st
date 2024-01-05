@@ -12,11 +12,11 @@ BaselineOfACRW >> baseline: spec [
 		self setUpDependencies: spec.
 		spec
 			package: 'ACRW'
-			with: [
-				spec requires: #( 'NeoJSON' 'ZTimestamp' ) ];
-			package: 'ACRW-Tests'
-			with: [ spec requires: #( 'ACRW' ) ];
+			with: [ spec requires: #( 'NeoJSON' 'ZTimestamp' 'NeoCSV') ];
+			package: 'ACRW-Scripts' with: [ spec requires: #( 'ACRW' ) ];
+			package: 'ACRW-Tests' with: [ spec requires: #( 'ACRW' ) ];
 			group: 'Core' with: #( 'ACRW' );
+			group: 'Scripting' with: #( 'ACRW-Scripts' );
 			group: 'Tests' with: #( 'ACRW-Tests' ) ]
 ]
 
