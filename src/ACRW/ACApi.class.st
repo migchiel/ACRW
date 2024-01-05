@@ -89,6 +89,12 @@ ACApi >> getProducts [
 ]
 
 { #category : #accessing }
+ACApi >> getProjects [
+
+	^ connection performRequest: #getProjects
+]
+
+{ #category : #accessing }
 ACApi >> getSubProductTypes [
 
 	^ connection performRequest: #getSubProductTypes

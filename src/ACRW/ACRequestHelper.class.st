@@ -64,6 +64,16 @@ ACRequestHelper >> apiGetProducts [
 ]
 
 { #category : #accessing }
+ACRequestHelper >> apiGetProjects [
+
+	^ { [ :connection |
+	  connection
+		  path: '/user/project';
+		  method: #GET;
+		  forJsonREST ] }
+]
+
+{ #category : #accessing }
 ACRequestHelper >> apiGetSubProductTypes [
 
 	^ {[ :connection |

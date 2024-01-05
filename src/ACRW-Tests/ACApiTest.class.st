@@ -97,6 +97,12 @@ ACApiTest >> testGetProducts [
 ]
 
 { #category : #test }
+ACApiTest >> testGetProjects [
+
+	self assert: acapi getProjects size equals: 5
+]
+
+{ #category : #test }
 ACApiTest >> testGetSubProductTypes [
 
 	self assert: acapi getSubProductTypes size equals: 10
