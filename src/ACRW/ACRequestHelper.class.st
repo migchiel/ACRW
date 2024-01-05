@@ -89,6 +89,18 @@ ACRequestHelper >> apiPrefix [
 	^ #api
 ]
 
+{ #category : #accessing }
+ACRequestHelper >> apiUpdateProducts [
+
+	^ {
+		  [ :connection |
+		  connection
+			  path: '/user/product';
+			  method: #PUT;
+			  forJsonREST ].
+		  [ :connection :content | connection contents: content ] }
+]
+
 { #category : #'as yet unclassified' }
 ACRequestHelper >> configurationBlockFor: apiCall [
 

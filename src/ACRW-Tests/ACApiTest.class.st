@@ -16,15 +16,21 @@ ACApiTest class >> resources [
 	^ { ACRWResource }
 ]
 
-{ #category : #tests }
+{ #category : #'helper methods' }
 ACApiTest >> newProduct [
 
 	^ NeoJSONObject new
 		  name: 'Test-Product-' , UUID new asString;
-		  description: 'TeSt-PrOduCt';
+		  description: self newProductDescription;
 		  type: (NeoJSONObject new
 				   type: 'Web Application';
 				   id: 1)
+]
+
+{ #category : #'helper methods' }
+ACApiTest >> newProductDescription [
+
+	^ 'ACRW-Test-Product'
 ]
 
 { #category : #running }
@@ -37,7 +43,7 @@ ACApiTest >> setUp [
 	 acapi := ACRWResource current acapi
 ]
 
-{ #category : #tests }
+{ #category : #test }
 ACApiTest >> testCreateDeleteProducts [
 
 	| testCollection testResults |
@@ -47,7 +53,7 @@ ACApiTest >> testCreateDeleteProducts [
 	acapi deleteProducts: testResults
 ]
 
-{ #category : #tests }
+{ #category : #test }
 ACApiTest >> testGetApiKeys [
 
 	| keys |
@@ -56,7 +62,7 @@ ACApiTest >> testGetApiKeys [
 		(keys anySatisfy: [ :key | key initials = ACRWResource apiKeyfingerPrint ])
 ]
 
-{ #category : #tests }
+{ #category : #test }
 ACApiTest >> testGetApiKeysHttp429 [
 
 	| keys |
@@ -71,7 +77,7 @@ ACApiTest >> testGetProductTypes [
 	self assert: acapi getProductTypes size equals: 6
 ]
 
-{ #category : #tests }
+{ #category : #test }
 ACApiTest >> testGetProducts [
 
 	self assert: acapi getProducts size equals: 2
@@ -88,4 +94,24 @@ ACApiTest >> testGetSubProductTypes [
 ACApiTest >> testGetSubProducts [
 
 	self assert: acapi getSubProducts size equals: 2
+]
+
+{ #category : #test }
+ACApiTest >> testUpdateProducts [
+
+	| testCollection testResults |
+	testCollection := Array with: self newProduct.
+	testResults := acapi createProducts: testCollection.
+	self assert: testResults size equals: 1.
+	self
+		assert: testResults first description
+		equals: self newProductDescription.
+	testResults first description:
+		testResults first description asUppercase.
+	testResults := acapi updateProducts: testResults.
+	self assert: testResults size equals: 1.
+	self
+		assert: testResults first description
+		equals: self newProductDescription asUppercase.
+	acapi deleteProducts: testResults
 ]

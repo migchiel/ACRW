@@ -106,3 +106,9 @@ ACApi >> initialize [
 
 	connection := ACConnection new
 ]
+
+{ #category : #accessing }
+ACApi >> updateProducts: aProductCollection [
+
+	^ connection performRequest: #updateProducts with: aProductCollection
+]
