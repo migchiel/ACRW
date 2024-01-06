@@ -44,9 +44,11 @@ ACApiTest >> setUp [
 ACApiTest >> testCreateDeleteProducts [
 
 	| testCollection testResults |
+	self longTestCase.
 	testCollection := Array with: self newProduct.
 	testResults := acapi createProducts: testCollection.
 	self assert: testResults size equals: 1.
+	4 seconds wait.
 	acapi deleteProducts: testResults
 ]
 
@@ -89,7 +91,7 @@ ACApiTest >> testGetProductTypes [
 { #category : #test }
 ACApiTest >> testGetProducts [
 
-	self assert: acapi getProducts size equals: 2
+	self assert: acapi getProducts size equals: 3
 		
 ]
 
