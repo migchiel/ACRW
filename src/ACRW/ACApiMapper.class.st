@@ -25,7 +25,7 @@ ACApiMapper >> apiCreateProducts [
 		  [ :connection :content | connection contents: content ] }
 ]
 
-{ #category : #accessing }
+{ #category : #'API - Deleting' }
 ACApiMapper >> apiDeleteProducts [
 
 	^ {
@@ -39,7 +39,7 @@ ACApiMapper >> apiDeleteProducts [
 		  [ :connection :aProduct | connection addPath: aProduct id asString ] }
 ]
 
-{ #category : #accessing }
+{ #category : #'API - Reading' }
 ACApiMapper >> apiGetApiKeys [
 
 	^ { [:connection |
@@ -49,7 +49,7 @@ ACApiMapper >> apiGetApiKeys [
 		  forJsonREST ] }
 ]
 
-{ #category : #accessing }
+{ #category : #'API - Reading' }
 ACApiMapper >> apiGetProductTypes [
 
 	^ { [:connection |
@@ -59,7 +59,7 @@ ACApiMapper >> apiGetProductTypes [
 		  forJsonREST ] }
 ]
 
-{ #category : #accessing }
+{ #category : #'API - Reading' }
 ACApiMapper >> apiGetProducts [
 
 	^ { [:connection |
@@ -69,7 +69,7 @@ ACApiMapper >> apiGetProducts [
 		  forJsonREST ] }
 ]
 
-{ #category : #accessing }
+{ #category : #'API - Reading' }
 ACApiMapper >> apiGetProjects [
 
 	^ { [:connection |
@@ -79,7 +79,7 @@ ACApiMapper >> apiGetProjects [
 		  forJsonREST ] }
 ]
 
-{ #category : #accessing }
+{ #category : #'API - Reading' }
 ACApiMapper >> apiGetSubProductTypes [
 
 	^ { [:connection |
@@ -89,7 +89,7 @@ ACApiMapper >> apiGetSubProductTypes [
 		  forJsonREST ] }
 ]
 
-{ #category : #accessing }
+{ #category : #'API - Reading' }
 ACApiMapper >> apiGetSubProducts [
 
 	^ { [:connection |
@@ -99,7 +99,7 @@ ACApiMapper >> apiGetSubProducts [
 		  forJsonREST ] }
 ]
 
-{ #category : #accessing }
+{ #category : #'API - Updating' }
 ACApiMapper >> apiUpdateProducts [
 
 	^ {
@@ -114,11 +114,11 @@ ACApiMapper >> apiUpdateProducts [
 { #category : #'as yet unclassified' }
 ACApiMapper >> configurationFor: anApiEndPoint [
 
-	^ (self lookupConfig: anApiEndPoint) first
+	^ (self lookupConfigFor: anApiEndPoint) first
 ]
 
 { #category : #'as yet unclassified' }
-ACApiMapper >> lookupConfig: anEndPoint [
+ACApiMapper >> lookupConfigFor: anEndPoint [
 
 	^ self perform: self class apiPrefix , anEndPoint capitalized
 ]
@@ -126,5 +126,5 @@ ACApiMapper >> lookupConfig: anEndPoint [
 { #category : #'as yet unclassified' }
 ACApiMapper >> prepareContentFor: anApiEndPoint [
 
-	^ (self lookupConfig: anApiEndPoint) second
+	^ (self lookupConfigFor: anApiEndPoint) second
 ]

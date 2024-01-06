@@ -1,34 +1,28 @@
 Class {
-	#name : #ACConnection,
+	#name : #ACHttpClient,
 	#superclass : #Object,
 	#instVars : [
-		'connection',
-		'requestHelper'
+		'requestHelper',
+		'znClient'
 	],
 	#category : #'ACRW-Core'
 }
 
 { #category : #'as yet unclassified' }
-ACConnection >> apiKey: anApiKeyString [
+ACHttpClient >> apiKey: anApiKeyString [
 
-	connection setBearerAuthentication: anApiKeyString
+	znClient setBearerAuthentication: anApiKeyString
 ]
 
 { #category : #'as yet unclassified' }
-ACConnection >> apiLimitDelay [
+ACHttpClient >> apiLimitDelay [
 	"retry wait time for HTTP 429, api rate limit (in seconds)"
 
 	^ 64
 ]
 
-{ #category : #accessing }
-ACConnection >> connection [ 
-
-	^ connection
-]
-
 { #category : #initialization }
-ACConnection >> createHTTPClient [
+ACHttpClient >> createHTTPClient [
 
 	^ ZnClient new
 		  systemPolicy;
@@ -39,12 +33,12 @@ ACConnection >> createHTTPClient [
 ]
 
 { #category : #'as yet unclassified' }
-ACConnection >> executeRequest [
+ACHttpClient >> executeRequest [
 
 	UIManager default informUserDuring: [ :bar |
 		bar label: 'Performing API call...'.
 		[
-		^ connection
+		^ znClient
 			  ifFail: [ :exception |
 				  ((exception isKindOf: ZnHttpUnsuccessful) and: [
 						   #( 429 ) includes: exception response code ]) ifTrue: [
@@ -59,21 +53,21 @@ ACConnection >> executeRequest [
 ]
 
 { #category : #initialization }
-ACConnection >> initialize [
+ACHttpClient >> initialize [
 
-	connection := self createHTTPClient.
-	requestHelper := ACRequestHelper for: connection
+	znClient := self createHTTPClient.
+	requestHelper := ACRequestHelper for: znClient
 ]
 
 { #category : #'as yet unclassified' }
-ACConnection >> performRequest: anApiEndPoint [
+ACHttpClient >> performRequest: anApiEndPoint [
 
 	requestHelper configureConnectionFor: anApiEndPoint.
 	^ self executeRequest
 ]
 
 { #category : #'as yet unclassified' }
-ACConnection >> performRequest: anApiEndPoint with: aCollection [
+ACHttpClient >> performRequest: anApiEndPoint with: aCollection [
 
 	requestHelper configureConnectionFor: anApiEndPoint.
 	^ aCollection collect: [ :item |
@@ -84,7 +78,7 @@ ACConnection >> performRequest: anApiEndPoint with: aCollection [
 ]
 
 { #category : #'as yet unclassified' }
-ACConnection >> recoverFromApiLimit [
+ACHttpClient >> recoverFromApiLimit [
 
 	1 to: self apiLimitDelay do: [ :each |
 		HTTPProgress
@@ -97,7 +91,13 @@ ACConnection >> recoverFromApiLimit [
 ]
 
 { #category : #accessing }
-ACConnection >> url: aUrl [
+ACHttpClient >> url: aUrl [
 
-	connection url: aUrl
+	znClient url: aUrl
+]
+
+{ #category : #accessing }
+ACHttpClient >> znClient [
+
+	^ znClient
 ]

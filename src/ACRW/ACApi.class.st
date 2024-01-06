@@ -2,7 +2,7 @@ Class {
 	#name : #ACApi,
 	#superclass : #Object,
 	#instVars : [
-		'connection'
+		'httpClient'
 	],
 	#category : #'ACRW-Core'
 }
@@ -19,7 +19,7 @@ ACApi class >> connectTo: aUrl withApiKey: anApiKey [
 	| acapi |
 	acapi := self basicNew.
 	acapi initialize.
-	acapi connection
+	acapi httpClient
 		url: aUrl;
 		apiKey: anApiKey.
 	^ acapi
@@ -52,69 +52,67 @@ ACApi class >> withApiKey: anApiKeyString [
 ]
 
 { #category : #accessing }
-ACApi >> connection [ 
-
-	^ connection
-]
-
-{ #category : #accessing }
 ACApi >> createProducts: aProductCollection [
 
-	^ connection performRequest: #createProducts with: aProductCollection 
+	^ httpClient performRequest: #createProducts with: aProductCollection
 ]
 
 { #category : #accessing }
 ACApi >> deleteProducts: aProductCollection [
 
-	^ connection performRequest: #deleteProducts with: aProductCollection
+	^ httpClient performRequest: #deleteProducts with: aProductCollection
 ]
 
 { #category : #accessing }
 ACApi >> getApiKeys [
 
-	 
-	^ connection performRequest: #getApiKeys
+	^ httpClient performRequest: #getApiKeys
 ]
 
 { #category : #accessing }
 ACApi >> getProductTypes [
 
-	^ connection performRequest: #getProductTypes
+	^ httpClient performRequest: #getProductTypes
 ]
 
 { #category : #accessing }
 ACApi >> getProducts [
 
-	^ connection performRequest: #getProducts.
+	^ httpClient performRequest: #getProducts
 ]
 
 { #category : #accessing }
 ACApi >> getProjects [
 
-	^ connection performRequest: #getProjects
+	^ httpClient performRequest: #getProjects
 ]
 
 { #category : #accessing }
 ACApi >> getSubProductTypes [
 
-	^ connection performRequest: #getSubProductTypes
+	^ httpClient performRequest: #getSubProductTypes
 ]
 
 { #category : #accessing }
 ACApi >> getSubProducts [
 
-	^ connection performRequest: #getSubProducts.
+	^ httpClient performRequest: #getSubProducts
+]
 
+{ #category : #accessing }
+ACApi >> httpClient [
+
+	^ httpClient
 ]
 
 { #category : #initialization }
 ACApi >> initialize [
 
-	connection := ACConnection new
+	httpClient := ACHttpClient new
 ]
 
 { #category : #accessing }
 ACApi >> updateProducts: aProductCollection [
 
-	^ connection performRequest: #updateProducts with: aProductCollection
+	^ httpClient performRequest: #updateProducts with: aProductCollection
 ]
