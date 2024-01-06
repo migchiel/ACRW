@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'requestHelper',
-		'znClient'
+		'znClient',
+		'signalProgress'
 	],
 	#category : #'ACRW-Core'
 }
@@ -21,13 +22,25 @@ ACHttpClient >> apiLimitDelay [
 	^ 64
 ]
 
+{ #category : #'as yet unclassified' }
+ACHttpClient >> clientExecute [
+
+	^ znClient
+			  ifFail: [ :exception |
+				  ((exception isKindOf: ZnHttpUnsuccessful) and: [
+						   #( 429 ) includes: exception response code ]) ifTrue: [
+						  self recoverFromApiLimit.
+						  exception signaler execute ] ];
+			  execute 
+]
+
 { #category : #initialization }
 ACHttpClient >> createHTTPClient [
 
 	^ ZnClient new
 		  systemPolicy;
 		  logLevel: 3;
-			 signalProgress: true; 
+		  signalProgress: false;
 		  autoResetEntityMethods: #( HEAD DELETE GET );
 		  logToTranscript
 ]
@@ -35,26 +48,24 @@ ACHttpClient >> createHTTPClient [
 { #category : #'as yet unclassified' }
 ACHttpClient >> executeRequest [
 
-	UIManager default informUserDuring: [ :bar |
-		bar label: 'Performing API call...'.
-		[
-		^ znClient
-			  ifFail: [ :exception |
-				  ((exception isKindOf: ZnHttpUnsuccessful) and: [
-						   #( 429 ) includes: exception response code ]) ifTrue: [
-						  self recoverFromApiLimit.
-						  exception signaler execute ] ];
-			  execute ]
-			on: HTTPProgress
-			do: [ :progress |
-				bar label: progress printString.
-				progress isEmpty ifFalse: [ bar current: progress percentage ].
-				progress resume ] ]
+	znClient signalProgress: signalProgress.
+	signalProgress
+		ifTrue: [
+			UIManager default informUserDuring: [ :bar |
+				bar label: 'Performing API call...'.
+				[ ^ self clientExecute ]
+					on: HTTPProgress
+					do: [ :progress |
+						bar label: progress printString.
+						progress isEmpty ifFalse: [ bar current: progress percentage ].
+						progress resume ] ] ]
+		ifFalse: [ ^ self clientExecute  ]
 ]
 
 { #category : #initialization }
 ACHttpClient >> initialize [
 
+	signalProgress := false.
 	znClient := self createHTTPClient.
 	requestHelper := ACRequestHelper for: znClient
 ]
