@@ -41,3 +41,9 @@ ACRequestHelper >> prepareWith: item for: anApiEndPoint [
 		value: connection
 		value: item
 ]
+
+{ #category : #'as yet unclassified' }
+ACRequestHelper >> processResponseFor: anApiEndPoint [
+
+	^ apiMapper responseBlockFor: anApiEndPoint
+]

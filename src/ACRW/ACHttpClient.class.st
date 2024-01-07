@@ -74,7 +74,8 @@ ACHttpClient >> initialize [
 ACHttpClient >> performRequest: anApiEndPoint [
 
 	requestHelper configureConnectionFor: anApiEndPoint.
-	^ self executeRequest
+	^ (requestHelper processResponseFor: anApiEndPoint) value: self executeRequest.
+	
 ]
 
 { #category : #'as yet unclassified' }

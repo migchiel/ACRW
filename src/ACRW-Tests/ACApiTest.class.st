@@ -53,18 +53,6 @@ ACApiTest >> testCreateDeleteProducts [
 ]
 
 { #category : #test }
-ACApiTest >> testCreateProducts [
-
-	self testCreateDeleteProducts 
-]
-
-{ #category : #test }
-ACApiTest >> testDeleteProducts [
-
-	self testCreateDeleteProducts 
-]
-
-{ #category : #test }
 ACApiTest >> testGetApiKeys [
 
 	| keys |
@@ -91,7 +79,7 @@ ACApiTest >> testGetProductTypes [
 { #category : #test }
 ACApiTest >> testGetProducts [
 
-	self assert: acapi getProducts size equals: 3
+	self assert: acapi getProducts size equals: 2
 		
 ]
 

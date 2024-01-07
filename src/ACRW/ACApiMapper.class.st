@@ -16,115 +16,184 @@ ACApiMapper class >> apiPrefix [
 { #category : #accessing }
 ACApiMapper >> apiCreateProducts [
 
-	^ {
-		  [ :connection |
-		  connection
-			  path: '/user/product';
-			  method: #POST;
-			  forJsonREST ].
-		  [ :connection :content | connection contents: content ] }
+	^ ACRequestConfiguration
+		  connectionConfig: [ :connection |
+			  connection
+				  path: '/user/product';
+				  method: #POST;
+				  forJsonREST ]
+		  contentConfig: [ :connection :product |
+		  connection contents: product ]
+		  resultConfig: [ :response | response ]
 ]
 
 { #category : #'API - Deleting' }
 ACApiMapper >> apiDeleteProducts [
 
-	^ {
-		  [ :connection |
-		  connection
-			  path: '/user/product';
-			  method: #DELETE;
-			  contentReader: nil;
-			  contentWriter: nil;
-			  accept: ZnMimeType any ].
-		  [ :connection :aProduct | connection addPath: aProduct id asString ] }
+	^ ACRequestConfiguration
+		connectionConfig: [ :connection |
+			connection
+				path: '/user/product';
+				method: #DELETE;
+				contentReader: nil;
+				contentWriter: nil;
+				accept: ZnMimeType any ]
+		contentConfig: [ :connection :product |
+		connection addPath: product id asString ]
+		resultConfig: [ :response | response ]
 ]
 
 { #category : #'API - Reading' }
 ACApiMapper >> apiGetApiKeys [
 
-	^ { [:connection |
-	  connection
-		  path: '/user/apikey';
-		  method: #GET;
-		  forJsonREST ] }
+	^ ACRequestConfiguration
+		  connectionConfig: [ :connection |
+			  connection
+				  path: '/user/apikey';
+				  method: #GET;
+				  forJsonREST ]
+		  contentConfig: [ :connection :apiKey |  ]
+		  resultConfig: [ :response | response ]
+]
+
+{ #category : #'API - Reading' }
+ACApiMapper >> apiGetAuditLogEntries [
+
+	^ ACRequestConfiguration
+		connectionConfig: [ :connection |
+			connection
+				path:
+					'/user/audit/log/details/page?page=0&size=100&revisionType=CREATED';
+				method: #GET;
+				forJsonREST ]
+		contentConfig: [ :content :logEntry |  ]
+		resultConfig: [ :response | response ]
 ]
 
 { #category : #'API - Reading' }
 ACApiMapper >> apiGetProductTypes [
 
-	^ { [:connection |
-	  connection
-		  path: '/user/product-type';
-		  method: #GET;
-		  forJsonREST ] }
+	^ ACRequestConfiguration
+		connectionConfig: [ :connection |
+			connection
+				path: '/user/product-type';
+				method: #GET;
+				forJsonREST ]
+		contentConfig: [ :connection :productType |  ]
+		resultConfig: [ :response | response ]
 ]
 
 { #category : #'API - Reading' }
 ACApiMapper >> apiGetProducts [
 
-	^ { [:connection |
-	  connection
-		  path: '/user/product';
-		  method: #GET;
-		  forJsonREST ] }
+	^ ACRequestConfiguration
+		connectionConfig: [ :connection |
+			connection
+				path: '/user/product';
+				method: #GET;
+				forJsonREST ]
+		contentConfig: [ :connection :content |  ]
+		resultConfig: [ :response | response ]
+]
+
+{ #category : #'API - Reading' }
+ACApiMapper >> apiGetProductsElastic [
+
+	^ ACRequestConfiguration
+		  connectionConfig: [ :connection |
+			  connection
+				  path: '/user/product/elastic?pageSize=99&pageNumber=0';
+				  method: #GET;
+				  forJsonREST ]
+		  contentConfig: [ :connection :content |  ]
+		  resultConfig: [ :response | response content ]
 ]
 
 { #category : #'API - Reading' }
 ACApiMapper >> apiGetProjects [
 
-	^ { [:connection |
+	^ ACRequestConfiguration connectionConfig: [ :connection |
 	  connection
 		  path: '/user/project';
 		  method: #GET;
-		  forJsonREST ] }
+		  forJsonREST ]
+	 contentConfig:  [ :connection :project | ]
+	resultConfig: [ :response | response ]
+	
 ]
 
 { #category : #'API - Reading' }
 ACApiMapper >> apiGetSubProductTypes [
 
-	^ { [:connection |
+	^ ACRequestConfiguration connectionConfig: [ :connection |
 	  connection
 		  path: '/user/sub-product-type';
 		  method: #GET;
-		  forJsonREST ] }
+		  forJsonREST ]
+	 contentConfig:  [ :connection : productType | ]
+	resultConfig: [ :response | response ]
+	
 ]
 
 { #category : #'API - Reading' }
 ACApiMapper >> apiGetSubProducts [
 
-	^ { [:connection |
+	^ ACRequestConfiguration connectionConfig: [ :connection |
 	  connection
 		  path: '/api/sub-product';
 		  method: #GET;
-		  forJsonREST ] }
+		  forJsonREST ]
+	 contentConfig:  [ :connection :subropduct | ]
+	resultConfig: [ :response | response ]
+	
+]
+
+{ #category : #'API - Reading' }
+ACApiMapper >> apiGetSubProductsElastic [
+
+	^ ACRequestConfiguration
+		  connectionConfig: [ :connection |
+			  connection
+				  path: '/user/sub-product/elastic?pageSize=99&pageNumber=0';
+				  method: #GET;
+				  forJsonREST ]
+		  contentConfig: [ :connection :subProduct |  ]
+		  resultConfig: [ :response | response content ]
 ]
 
 { #category : #'API - Updating' }
 ACApiMapper >> apiUpdateProducts [
 
-	^ {
-		  [:connection |
+	^ ACRequestConfiguration connectionConfig: [ :connection |
 		  connection
 			  path: '/user/product';
 			  method: #PUT;
-			  forJsonREST ].
-		  [ :connection :content | connection contents: content ] }
+			  forJsonREST ]
+	 contentConfig:  [ :connection :content | connection contents: content ]
+	resultConfig: [ :response | response ]
+	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #configuration }
 ACApiMapper >> configurationFor: anApiEndPoint [
 
-	^ (self lookupConfigFor: anApiEndPoint) first
+	^ (self lookupConfigFor: anApiEndPoint) connectionConfig
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #configuration }
 ACApiMapper >> lookupConfigFor: anEndPoint [
 
 	^ self perform: self class apiPrefix , anEndPoint capitalized
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #configuration }
 ACApiMapper >> prepareContentFor: anApiEndPoint [
 
-	^ (self lookupConfigFor: anApiEndPoint) second
+	^ (self lookupConfigFor: anApiEndPoint) contentConfig 
+]
+
+{ #category : #configuration }
+ACApiMapper >> responseBlockFor: anApiEndPoint [
+
+	^ (self lookupConfigFor: anApiEndPoint) resultConfig 
 ]

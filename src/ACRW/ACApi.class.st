@@ -70,6 +70,12 @@ ACApi >> getApiKeys [
 ]
 
 { #category : #accessing }
+ACApi >> getAuditLogEntries [
+
+	^ httpClient performRequest: #getAuditLogEntries 
+]
+
+{ #category : #accessing }
 ACApi >> getProductTypes [
 
 	^ httpClient performRequest: #getProductTypes
@@ -79,6 +85,12 @@ ACApi >> getProductTypes [
 ACApi >> getProducts [
 
 	^ httpClient performRequest: #getProducts
+]
+
+{ #category : #accessing }
+ACApi >> getProductsElastic [
+
+	^ httpClient performRequest: #getProductsElastic
 ]
 
 { #category : #accessing }
@@ -97,6 +109,12 @@ ACApi >> getSubProductTypes [
 ACApi >> getSubProducts [
 
 	^ httpClient performRequest: #getSubProducts
+]
+
+{ #category : #accessing }
+ACApi >> getSubProductsElastic [
+
+	^ httpClient performRequest: #getSubProductsElastic
 ]
 
 { #category : #accessing }
