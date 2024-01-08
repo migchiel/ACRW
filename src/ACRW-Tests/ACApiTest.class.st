@@ -71,6 +71,12 @@ ACApiTest >> testGetApiKeysHttp429 [
 ]
 
 { #category : #test }
+ACApiTest >> testGetAuditLogEntries [
+
+	self assert: acapi getAuditLogEntries content size equals: 100
+]
+
+{ #category : #test }
 ACApiTest >> testGetProductTypes [
 
 	self assert: acapi getProductTypes size equals: 6
@@ -81,6 +87,12 @@ ACApiTest >> testGetProducts [
 
 	self assert: acapi getProducts size equals: 2
 		
+]
+
+{ #category : #test }
+ACApiTest >> testGetProductsElastic [
+
+	self assert: acapi getProductsElastic size equals: 7
 ]
 
 { #category : #test }
