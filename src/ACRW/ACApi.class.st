@@ -18,9 +18,9 @@ ACApi class >> apiTokenFromEnvironment [
 ACApi class >> connectTo: aUrl withApiKey: anApiKey [
 
 	| acapi |
-	acapi := self new
-		url: aUrl;
-		apiKey: anApiKey.
+	acapi := self basicNew
+		         url: aUrl;
+		         apiKey: anApiKey.
 	^ acapi
 ]
 
