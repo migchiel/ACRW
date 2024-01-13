@@ -27,6 +27,20 @@ ACApiMapper >> apiCreateProducts [
 		  resultConfig: [ :response | response ]
 ]
 
+{ #category : #accessing }
+ACApiMapper >> apiCreateSubProducts [
+
+	^ ACRequestConfiguration
+		  connectionConfig: [ :connection |
+			  connection
+				  path: '/api/sub-product';
+				  method: #POST;
+				  forJsonREST ]
+		  contentConfig: [ :connection :product |
+		  connection contents: product ]
+		  resultConfig: [ :response | response ]
+]
+
 { #category : #'API - Deleting' }
 ACApiMapper >> apiDeleteProducts [
 

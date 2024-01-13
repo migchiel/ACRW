@@ -81,12 +81,10 @@ ACHttpClient >> performRequest: anApiEndPoint [
 { #category : #'as yet unclassified' }
 ACHttpClient >> performRequest: anApiEndPoint with: aCollection [
 
-	requestHelper configureConnectionFor: anApiEndPoint.
 	^ aCollection collect: [ :item |
-		             requestHelper
-			             prepareWith: item
-			             for: anApiEndPoint.
-		             self executeRequest ]
+		  requestHelper configureConnectionFor: anApiEndPoint.
+		  requestHelper prepareWith: item for: anApiEndPoint.
+		  self executeRequest ]
 ]
 
 { #category : #'as yet unclassified' }

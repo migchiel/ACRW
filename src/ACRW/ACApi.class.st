@@ -58,6 +58,12 @@ ACApi >> createProducts: aProductCollection [
 ]
 
 { #category : #accessing }
+ACApi >> createSubProducts: aSubProductCollection [
+
+	^ httpClient performRequest: #createSubProducts with: aSubProductCollection
+]
+
+{ #category : #accessing }
 ACApi >> deleteProducts: aProductCollection [
 
 	^ httpClient performRequest: #deleteProducts with: aProductCollection
