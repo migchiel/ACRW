@@ -2,7 +2,6 @@ Class {
 	#name : #ACHttpClient,
 	#superclass : #Object,
 	#instVars : [
-		'requestHelper',
 		'znClient',
 		'signalProgress',
 		'apiEndPoint'
@@ -13,7 +12,7 @@ Class {
 { #category : #'instance creation' }
 ACHttpClient class >> with: anApiEndPoint [
 
-	^ self new apiEndPoint: anApiEndPoint 
+	^ self basicNew apiEndPoint: anApiEndPoint;initialize
 ]
 
 { #category : #accessing }

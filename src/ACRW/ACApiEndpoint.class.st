@@ -18,6 +18,12 @@ ACApiEndpoint class >> withUrl: aUrl andApiKey: anApiKey [
 ]
 
 { #category : #accessing }
+ACApiEndpoint >> apiKey [
+
+	^ apiKey
+]
+
+{ #category : #accessing }
 ACApiEndpoint >> apiKey: anApiKey [
 
 	apiKey := anApiKey
@@ -81,6 +87,12 @@ ACApiEndpoint >> put [
 ACApiEndpoint >> update: aCollection [
 
 	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+ACApiEndpoint >> url [
+
+	^ url
 ]
 
 { #category : #accessing }
