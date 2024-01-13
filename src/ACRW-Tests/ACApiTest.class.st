@@ -73,7 +73,7 @@ ACApiTest >> testGetApiKeysHttp429 [
 { #category : #test }
 ACApiTest >> testGetAuditLogEntries [
 
-	self assert: acapi getAuditLogEntries content size equals: 100
+	self assert: acapi getAuditLogs content size equals: 100
 ]
 
 { #category : #test }

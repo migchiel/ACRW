@@ -4,10 +4,17 @@ Class {
 	#instVars : [
 		'requestHelper',
 		'znClient',
-		'signalProgress'
+		'signalProgress',
+		'apiEndPoint'
 	],
 	#category : #'ACRW-Core'
 }
+
+{ #category : #'instance creation' }
+ACHttpClient class >> with: anApiEndPoint [
+
+	^ self new apiEndPoint: anApiEndPoint 
+]
 
 { #category : #'as yet unclassified' }
 ACHttpClient >> apiKey: anApiKeyString [
@@ -35,7 +42,7 @@ ACHttpClient >> clientExecute [
 ]
 
 { #category : #initialization }
-ACHttpClient >> createHTTPClient [
+ACHttpClient >> createZnClient [
 
 	^ ZnClient new
 		  systemPolicy;
@@ -62,19 +69,26 @@ ACHttpClient >> executeRequest [
 		ifFalse: [ ^ self clientExecute  ]
 ]
 
+{ #category : #'actions api' }
+ACHttpClient >> get [ 
+
+	apiEndPoint pathBlock value: znClient.
+	apiEndPoint getBlock value: znClient.
+	^ self executeRequest 
+	
+]
+
 { #category : #initialization }
 ACHttpClient >> initialize [
 
 	signalProgress := false.
-	znClient := self createHTTPClient.
-	requestHelper := ACRequestHelper for: znClient
+	znClient := self createZnClient
 ]
 
 { #category : #'as yet unclassified' }
 ACHttpClient >> performRequest: anApiEndPoint [
 
-	requestHelper configureConnectionFor: anApiEndPoint.
-	^ (requestHelper processResponseFor: anApiEndPoint) value: self executeRequest.
+	^ apiEndPoint get.
 	
 ]
 

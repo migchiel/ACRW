@@ -1,9 +1,6 @@
 Class {
 	#name : #ACApi,
 	#superclass : #Object,
-	#instVars : [
-		'httpClient'
-	],
 	#category : #'ACRW-Core'
 }
 
@@ -72,55 +69,55 @@ ACApi >> deleteProducts: aProductCollection [
 { #category : #accessing }
 ACApi >> getApiKeys [
 
-	^ httpClient performRequest: #getApiKeys
+	^ ACApiFactory endPointFor: thisContext selector
 ]
 
 { #category : #accessing }
-ACApi >> getAuditLogEntries [
+ACApi >> getAuditLogs [
 
-	^ httpClient performRequest: #getAuditLogEntries 
+	^ ACApiFactory endPointFor: thisContext selector
 ]
 
 { #category : #accessing }
 ACApi >> getProductTypes [
 
-	^ httpClient performRequest: #getProductTypes
+	^ ACApiFactory endPointFor: thisContext selector
 ]
 
 { #category : #accessing }
 ACApi >> getProducts [
 
-	^ httpClient performRequest: #getProducts
+	^ (ACApiFactory endPointFor: thisContext selector) get
 ]
 
 { #category : #accessing }
 ACApi >> getProductsElastic [
 
-	^ httpClient performRequest: #getProductsElastic
+	^ ACApiFactory endPointFor: thisContext selector
 ]
 
 { #category : #accessing }
 ACApi >> getProjects [
 
-	^ httpClient performRequest: #getProjects
+	^ ACApiFactory endPointFor: thisContext selector
 ]
 
 { #category : #accessing }
 ACApi >> getSubProductTypes [
 
-	^ httpClient performRequest: #getSubProductTypes
+	^ ACApiFactory endPointFor: thisContext selector
 ]
 
 { #category : #accessing }
 ACApi >> getSubProducts [
 
-	^ httpClient performRequest: #getSubProducts
+	^ ACApiFactory endPointFor: thisContext selector
 ]
 
 { #category : #accessing }
 ACApi >> getSubProductsElastic [
 
-	^ httpClient performRequest: #getSubProductsElastic
+	^ ACApiFactory endPointFor: thisContext selector
 ]
 
 { #category : #accessing }
