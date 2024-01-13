@@ -96,7 +96,7 @@ ACApi >> getProductTypes [
 { #category : #accessing }
 ACApi >> getProducts [
 
-	^ (ACApiFactory endPointFor: thisContext selector) new get
+	^ ((ACApiFactory endPointFor: thisContext selector) withUrl: url andApiKey: apiKey) get
 ]
 
 { #category : #accessing }

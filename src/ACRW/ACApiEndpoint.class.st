@@ -2,15 +2,25 @@ Class {
 	#name : #ACApiEndpoint,
 	#superclass : #Object,
 	#instVars : [
-		'httpClient'
+		'httpClient',
+		'url',
+		'apiKey'
 	],
 	#category : #'ACRW-Endpoints'
 }
 
 { #category : #'instance creation' }
-ACApiEndpoint class >> with: aConnection [
+ACApiEndpoint class >> withUrl: aUrl andApiKey: anApiKey [
 
-	^ self new connection: aConnection
+	^ self basicNew
+		  url: aUrl;
+		  apiKey: anApiKey;initialize
+]
+
+{ #category : #accessing }
+ACApiEndpoint >> apiKey: anApiKey [
+
+	apiKey := anApiKey
 ]
 
 { #category : #'actions api' }
@@ -67,15 +77,14 @@ ACApiEndpoint >> put [
 	^ self subclassResponsibility 
 ]
 
-{ #category : #'as yet unclassified' }
-ACApiEndpoint >> setupForUrl: aUrl withApiKey: anApiKey [
-
-	httpClient url: aUrl.
-	httpClient apiKey: anApiKey
-]
-
 { #category : #'actions api' }
 ACApiEndpoint >> update: aCollection [
 
 	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+ACApiEndpoint >> url: aUrl [
+
+	url := aUrl
 ]

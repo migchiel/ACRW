@@ -88,7 +88,10 @@ ACHttpClient >> get [
 ACHttpClient >> initialize [
 
 	signalProgress := false.
-	znClient := self createZnClient
+	znClient := self createZnClient.
+	znClient url: apiEndPoint url.
+	znClient setBearerAuthentication: apiEndPoint apiToken 
+	
 ]
 
 { #category : #'as yet unclassified' }
@@ -124,10 +127,4 @@ ACHttpClient >> recoverFromApiLimit [
 ACHttpClient >> url: aUrl [
 
 	znClient url: aUrl
-]
-
-{ #category : #accessing }
-ACHttpClient >> znClient [
-
-	^ znClient
 ]
