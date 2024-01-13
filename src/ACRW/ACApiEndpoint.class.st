@@ -14,9 +14,21 @@ ACApiEndpoint class >> with: aConnection [
 ]
 
 { #category : #'actions api' }
+ACApiEndpoint >> create: aCollection [
+
+	^ self subclassResponsibility
+]
+
+{ #category : #'actions api' }
 ACApiEndpoint >> delete [
 
 	^ self subclassResponsibility 
+]
+
+{ #category : #'actions api' }
+ACApiEndpoint >> delete: aCollection [
+
+	^ self subclassResponsibility
 ]
 
 { #category : #'actions api' }
@@ -60,4 +72,10 @@ ACApiEndpoint >> setupForUrl: aUrl withApiKey: anApiKey [
 
 	httpClient url: aUrl.
 	httpClient apiKey: anApiKey
+]
+
+{ #category : #'actions api' }
+ACApiEndpoint >> update: aCollection [
+
+	^ self subclassResponsibility
 ]

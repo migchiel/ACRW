@@ -1,6 +1,10 @@
 Class {
 	#name : #ACApi,
 	#superclass : #Object,
+	#instVars : [
+		'url',
+		'apiKey'
+	],
 	#category : #'ACRW-Core'
 }
 
@@ -14,9 +18,7 @@ ACApi class >> apiTokenFromEnvironment [
 ACApi class >> connectTo: aUrl withApiKey: anApiKey [
 
 	| acapi |
-	acapi := self basicNew.
-	acapi initialize.
-	acapi httpClient
+	acapi := self new
 		url: aUrl;
 		apiKey: anApiKey.
 	^ acapi
@@ -49,45 +51,52 @@ ACApi class >> withApiKey: anApiKeyString [
 ]
 
 { #category : #accessing }
+ACApi >> apiKey: anApiKey [
+
+	apiKey := anApiKey 
+]
+
+{ #category : #accessing }
 ACApi >> createProducts: aProductCollection [
 
-	^ httpClient performRequest: #createProducts with: aProductCollection
+	^ (ACApiFactory endPointFor: thisContext selector) new create: aProductCollection
 ]
 
 { #category : #accessing }
 ACApi >> createSubProducts: aSubProductCollection [
 
-	^ httpClient performRequest: #createSubProducts with: aSubProductCollection
+	^ (ACApiFactory endPointFor: thisContext selector) new create:
+		  aSubProductCollection
 ]
 
 { #category : #accessing }
 ACApi >> deleteProducts: aProductCollection [
 
-	^ httpClient performRequest: #deleteProducts with: aProductCollection
+	^ (ACApiFactory endPointFor: thisContext selector) new delete: aProductCollection
 ]
 
 { #category : #accessing }
 ACApi >> getApiKeys [
 
-	^ ACApiFactory endPointFor: thisContext selector
+	^ (ACApiFactory endPointFor: thisContext selector) new get
 ]
 
 { #category : #accessing }
 ACApi >> getAuditLogs [
 
-	^ ACApiFactory endPointFor: thisContext selector
+	^ (ACApiFactory endPointFor: thisContext selector) new get
 ]
 
 { #category : #accessing }
 ACApi >> getProductTypes [
 
-	^ ACApiFactory endPointFor: thisContext selector
+	^ (ACApiFactory endPointFor: thisContext selector) new get
 ]
 
 { #category : #accessing }
 ACApi >> getProducts [
 
-	^ (ACApiFactory endPointFor: thisContext selector) get
+	^ (ACApiFactory endPointFor: thisContext selector) new get
 ]
 
 { #category : #accessing }
@@ -99,41 +108,35 @@ ACApi >> getProductsElastic [
 { #category : #accessing }
 ACApi >> getProjects [
 
-	^ ACApiFactory endPointFor: thisContext selector
+	^ (ACApiFactory endPointFor: thisContext selector)new get
 ]
 
 { #category : #accessing }
 ACApi >> getSubProductTypes [
 
-	^ ACApiFactory endPointFor: thisContext selector
+	^ (ACApiFactory endPointFor: thisContext selector) new get
 ]
 
 { #category : #accessing }
 ACApi >> getSubProducts [
 
-	^ ACApiFactory endPointFor: thisContext selector
+	^ (ACApiFactory endPointFor: thisContext selector) new get
 ]
 
 { #category : #accessing }
 ACApi >> getSubProductsElastic [
 
-	^ ACApiFactory endPointFor: thisContext selector
-]
-
-{ #category : #accessing }
-ACApi >> httpClient [
-
-	^ httpClient
-]
-
-{ #category : #initialization }
-ACApi >> initialize [
-
-	httpClient := ACHttpClient new
+	^ (ACApiFactory endPointFor: thisContext selector) new get
 ]
 
 { #category : #accessing }
 ACApi >> updateProducts: aProductCollection [
 
-	^ httpClient performRequest: #updateProducts with: aProductCollection
+	^ (ACApiFactory endPointFor: thisContext selector) new update: aProductCollection
+]
+
+{ #category : #accessing }
+ACApi >> url: aUrl [
+
+	url := aUrl 
 ]

@@ -23,10 +23,10 @@ ACProductEndPoint >> get [
 { #category : #'actions api' }
 ACProductEndPoint >> getBlock [
 
-	self configureConnection.
-	^ [:c | c
+	^ [ :c |
+	  c
 		  forJsonREST;
-		  method: #GET]
+		  method: #GET ]
 ]
 
 { #category : #'actions api' }

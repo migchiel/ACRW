@@ -16,6 +16,12 @@ ACHttpClient class >> with: anApiEndPoint [
 	^ self new apiEndPoint: anApiEndPoint 
 ]
 
+{ #category : #accessing }
+ACHttpClient >> apiEndPoint: anApiEndPoint [
+
+	apiEndPoint := anApiEndPoint 
+]
+
 { #category : #'as yet unclassified' }
 ACHttpClient >> apiKey: anApiKeyString [
 
@@ -70,12 +76,12 @@ ACHttpClient >> executeRequest [
 ]
 
 { #category : #'actions api' }
-ACHttpClient >> get [ 
+ACHttpClient >> get [
 
 	apiEndPoint pathBlock value: znClient.
 	apiEndPoint getBlock value: znClient.
-	^ self executeRequest 
-	
+	znClient inspect.
+	^ self executeRequest
 ]
 
 { #category : #initialization }
