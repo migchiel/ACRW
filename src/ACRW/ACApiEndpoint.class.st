@@ -109,9 +109,12 @@ ACApiEndpoint >> postBlock [
 ]
 
 { #category : #'actions api' }
-ACApiEndpoint >> put: aCollection [
+ACApiEndpoint >> putBlock [
 
-	^ [  ]
+	^ [ :c |
+	  c
+		  forJsonREST;
+		  method: #PUT ]
 ]
 
 { #category : #'actions api' }

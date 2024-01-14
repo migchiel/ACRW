@@ -23,3 +23,10 @@ ACProductEndPoint >> pathBlock [
 
 	^ [ :c | c path: '/user/product' ]
 ]
+
+{ #category : #'actions api' }
+ACProductEndPoint >> update: aCollection [
+
+	content := aCollection.
+	^ httpClient put
+]

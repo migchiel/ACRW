@@ -118,6 +118,16 @@ ACHttpClient >> post [
 		  znClient execute ]
 ]
 
+{ #category : #'actions api' }
+ACHttpClient >> put [
+
+	apiEndPoint pathBlock value: znClient.
+	apiEndPoint putBlock value: znClient.
+	^ apiEndPoint content collect: [ :item |
+		  apiEndPoint createContentBlock value: znClient value: item.
+		  znClient execute ]
+]
+
 { #category : #'as yet unclassified' }
 ACHttpClient >> recoverFromApiLimit [
 
