@@ -80,7 +80,8 @@ ACApi >> createSubProduct: aSubProductCollection [
 { #category : #accessing }
 ACApi >> deleteProduct: aProductCollection [
 
-	^ (ACApiFactory endPointFor: thisContext selector) new delete: aProductCollection
+	^ (ACApiFactory endPointFor: thisContext selector) delete:
+		  aProductCollection
 ]
 
 { #category : #accessing }

@@ -11,6 +11,13 @@ ACProductEndPoint >> create: aCollection [
 	httpClient post
 ]
 
+{ #category : #'actions api' }
+ACProductEndPoint >> delete: aCollection [
+
+	content := aCollection.
+	httpClient delete
+]
+
 { #category : #configuration }
 ACProductEndPoint >> pathBlock [
 

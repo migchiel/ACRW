@@ -57,6 +57,16 @@ ACHttpClient >> createZnClient [
 		  logToTranscript
 ]
 
+{ #category : #'actions api' }
+ACHttpClient >> delete [
+
+	apiEndPoint deleteBlock value: znClient.
+	^ apiEndPoint content collect: [ :item |
+			apiEndPoint pathBlock value: znClient.
+		  apiEndPoint deleteContentBlock value: znClient value: item.
+		  znClient execute ]
+]
+
 { #category : #'as yet unclassified' }
 ACHttpClient >> executeRequest [
 
@@ -104,7 +114,7 @@ ACHttpClient >> post [
 	apiEndPoint pathBlock value: znClient.
 	apiEndPoint postBlock value: znClient.
 	^ apiEndPoint content collect: [ :item |
-		  apiEndPoint contentBlock value: znClient value: item.
+		  apiEndPoint createContentBlock value: znClient value: item.
 		  znClient execute ]
 ]
 

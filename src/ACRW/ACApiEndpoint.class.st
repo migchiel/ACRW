@@ -36,16 +36,16 @@ ACApiEndpoint >> content [
 	^ content
 ]
 
-{ #category : #'as yet unclassified' }
-ACApiEndpoint >> contentBlock [
-
-	^ [ :c :d | c contents: d ]
-]
-
 { #category : #'actions api' }
 ACApiEndpoint >> create: aCollection [
 
 	^ self subclassResponsibility
+]
+
+{ #category : #'as yet unclassified' }
+ACApiEndpoint >> createContentBlock [
+
+	^ [ :c :d | c contents: d ]
 ]
 
 { #category : #'actions api' }
@@ -57,6 +57,24 @@ ACApiEndpoint >> delete: aCollection [
 		  contentReader: nil;
 		  contentWriter: nil;
 		  accept: ZnMimeType any ]
+]
+
+{ #category : #'actions api' }
+ACApiEndpoint >> deleteBlock [
+
+	^ [ :c |
+	  c
+		  method: #DELETE;
+		  contentReader: nil;
+		  contentWriter: nil;
+		  accept: ZnMimeType any ]
+]
+
+{ #category : #'actions api' }
+ACApiEndpoint >> deleteContentBlock [
+
+	^ [ :c :d | c addPath: d id asString ]
+	
 ]
 
 { #category : #'actions api' }
