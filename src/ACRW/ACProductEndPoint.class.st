@@ -8,14 +8,14 @@ Class {
 ACProductEndPoint >> create: aCollection [
 
 	content := aCollection.
-	httpClient post
+	^ httpClient post
 ]
 
 { #category : #'actions api' }
 ACProductEndPoint >> delete: aCollection [
 
 	content := aCollection.
-	httpClient delete
+	^ httpClient delete
 ]
 
 { #category : #configuration }

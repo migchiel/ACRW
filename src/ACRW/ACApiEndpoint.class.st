@@ -49,17 +49,6 @@ ACApiEndpoint >> createContentBlock [
 ]
 
 { #category : #'actions api' }
-ACApiEndpoint >> delete: aCollection [
-
-^ [ :c |
-	  c
-		  method: #DELETE;
-		  contentReader: nil;
-		  contentWriter: nil;
-		  accept: ZnMimeType any ]
-]
-
-{ #category : #'actions api' }
 ACApiEndpoint >> deleteBlock [
 
 	^ [ :c |
