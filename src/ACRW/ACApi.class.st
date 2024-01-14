@@ -73,15 +73,14 @@ ACApi >> createProduct: aProductCollection [
 { #category : #accessing }
 ACApi >> createSubProduct: aSubProductCollection [
 
-	^ (ACApiFactory endPointFor: thisContext selector) new create:
+	^ (ACApiFactory endPointFor: thisContext selector) create:
 		  aSubProductCollection
 ]
 
 { #category : #accessing }
 ACApi >> deleteProduct: aProductCollection [
 
-	^ (ACApiFactory endPointFor: thisContext selector) delete:
-		  aProductCollection
+	^ (self createApiEndPoint: thisContext selector) delete: aProductCollection
 ]
 
 { #category : #accessing }
@@ -155,7 +154,7 @@ ACApi >> getSubProductType [
 { #category : #accessing }
 ACApi >> updateProduct: aProductCollection [
 
-	^ (ACApiFactory endPointFor: thisContext selector) new update: aProductCollection
+	^ (self createApiEndPoint: thisContext selector) update: aProductCollection
 ]
 
 { #category : #accessing }

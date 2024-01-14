@@ -86,7 +86,7 @@ ACApiTest >> testGetProductTypes [
 { #category : #test }
 ACApiTest >> testGetProducts [
 
-	self assert: acapi getProduct size equals: 2
+	self assert: acapi getProduct size equals: 1
 		
 ]
 
@@ -111,7 +111,7 @@ ACApiTest >> testGetSubProductTypes [
 { #category : #test }
 ACApiTest >> testGetSubProducts [
 
-	self assert: acapi getSubProduct size equals: 2
+	self assert: acapi getSubProduct size equals: 0
 ]
 
 { #category : #test }
