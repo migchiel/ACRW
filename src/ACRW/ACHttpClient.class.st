@@ -104,9 +104,8 @@ ACHttpClient >> post [
 	apiEndPoint pathBlock value: znClient.
 	apiEndPoint postBlock value: znClient.
 	^ apiEndPoint content collect: [ :item |
-		 apiEndPoint contentBlock value: znClient value: item.
-		 self execute ]
-		 
+		  apiEndPoint contentBlock value: znClient value: item.
+		  znClient execute ]
 ]
 
 { #category : #'as yet unclassified' }

@@ -39,7 +39,7 @@ ACApiEndpoint >> content [
 { #category : #'as yet unclassified' }
 ACApiEndpoint >> contentBlock [
 
-	^ [ :c :d | c content: d ]
+	^ [ :c :d | c contents: d ]
 ]
 
 { #category : #'actions api' }

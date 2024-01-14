@@ -20,19 +20,13 @@ ACApiFactoryTest >> setUp [
 ]
 
 { #category : #tests }
-ACApiFactoryTest >> testDetermineAction [
-
-	self assert: (factory determineAction: 'getProduct') equals: 'get'.
-	self
-		assert: (factory determineAction: 'createSubProduct')
-		equals: 'create'
-]
-
-{ #category : #tests }
 ACApiFactoryTest >> testDetermineEndPoint [
 
 	self
 		assert: (factory determineEndPoint: 'getProduct')
+		equals: 'Product'.
+	self
+		assert: (factory determineEndPoint: 'createProduct:')
 		equals: 'Product'.
 	self
 		assert: (factory determineEndPoint: 'createSubProduct')

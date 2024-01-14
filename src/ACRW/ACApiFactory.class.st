@@ -5,15 +5,13 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ACApiFactory class >> determineAction: aString [
-
-	^ aString first: ((aString findFirst: #isUppercase) - 1)
-]
-
-{ #category : #'as yet unclassified' }
 ACApiFactory class >> determineEndPoint: aString [
-
-	^ aString trimLeft: #isLowercase
+	| endPoint |
+	
+  endPoint := aString trimLeft: #isLowercase.
+  endPoint last = $: ifTrue: [ ^ endPoint allButLast ].
+	^ endPoint
+		  
 ]
 
 { #category : #'as yet unclassified' }
