@@ -98,13 +98,15 @@ ACHttpClient >> performRequest: anApiEndPoint [
 	
 ]
 
-{ #category : #'as yet unclassified' }
-ACHttpClient >> performRequest: anApiEndPoint with: aCollection [
+{ #category : #'actions api' }
+ACHttpClient >> post [
 
-	^ aCollection collect: [ :item |
-		  requestHelper configureConnectionFor: anApiEndPoint.
-		  requestHelper prepareWith: item for: anApiEndPoint.
-		  self executeRequest ]
+	apiEndPoint pathBlock value: znClient.
+	apiEndPoint postBlock value: znClient.
+	^ apiEndPoint content collect: [ :item |
+		 apiEndPoint contentBlock value: znClient value: item.
+		 self execute ]
+		 
 ]
 
 { #category : #'as yet unclassified' }

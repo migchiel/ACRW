@@ -56,10 +56,18 @@ ACApi >> apiKey: anApiKey [
 	apiKey := anApiKey 
 ]
 
+{ #category : #'as yet unclassified' }
+ACApi >> createApiEndPoint: anEndPointMethod [
+
+^ ((ACApiFactory endPointFor: anEndPointMethod)
+		   withUrl: url
+		   andApiKey: apiKey)
+]
+
 { #category : #accessing }
 ACApi >> createProduct: aProductCollection [
 
-	^ (ACApiFactory endPointFor: thisContext selector) new create: aProductCollection
+	^ (self createApiEndPoint: thisContext selector)  create: aProductCollection
 ]
 
 { #category : #accessing }
@@ -94,7 +102,7 @@ ACApi >> getAuditLog [
 { #category : #accessing }
 ACApi >> getProduct [
 
-	^ ((ACApiFactory endPointFor: thisContext selector) withUrl: url andApiKey: apiKey) get
+	^ (self createApiEndPoint: thisContext selector) get
 ]
 
 { #category : #accessing }

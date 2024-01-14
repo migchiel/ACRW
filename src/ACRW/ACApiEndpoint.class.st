@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'httpClient',
 		'url',
-		'apiKey'
+		'apiKey',
+		'content'
 	],
 	#category : #'ACRW-Endpoints'
 }
@@ -27,6 +28,18 @@ ACApiEndpoint >> apiKey [
 ACApiEndpoint >> apiKey: anApiKey [
 
 	apiKey := anApiKey
+]
+
+{ #category : #accessing }
+ACApiEndpoint >> content [
+
+	^ content
+]
+
+{ #category : #'as yet unclassified' }
+ACApiEndpoint >> contentBlock [
+
+	^ [ :c :d | c content: d ]
 ]
 
 { #category : #'actions api' }
@@ -80,9 +93,12 @@ ACApiEndpoint >> pathBlock [
 ]
 
 { #category : #'actions api' }
-ACApiEndpoint >> post: aCollection [
+ACApiEndpoint >> postBlock [
 
-	^ [  ]
+	^ [ :c |
+	  c
+		  forJsonREST;
+		  method: #POST ]
 ]
 
 { #category : #'actions api' }
