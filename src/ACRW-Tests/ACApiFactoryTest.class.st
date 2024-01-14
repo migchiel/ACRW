@@ -12,30 +12,30 @@ Class {
 
 { #category : #running }
 ACApiFactoryTest >> setUp [
+
 	super setUp.
 
 	"Put here a common initialization logic for tests"
-	factory := ACApiFactory new
+	factory := ACApiFactory
 ]
 
 { #category : #tests }
 ACApiFactoryTest >> testDetermineAction [
 
-	self assert: (factory determineAction: 'getProducts') equals: 'get'.
+	self assert: (factory determineAction: 'getProduct') equals: 'get'.
 	self
-		assert: (factory determineAction: 'createSubProducts')
-		equals: 'create'.
-	 
+		assert: (factory determineAction: 'createSubProduct')
+		equals: 'create'
 ]
 
 { #category : #tests }
 ACApiFactoryTest >> testDetermineEndPoint [
 
 	self
-		assert: (factory determineEndPoint: 'getProducts')
+		assert: (factory determineEndPoint: 'getProduct')
 		equals: 'Product'.
 	self
-		assert: (factory determineEndPoint: 'createSubProducts')
+		assert: (factory determineEndPoint: 'createSubProduct')
 		equals: 'SubProduct'
 ]
 
@@ -43,9 +43,9 @@ ACApiFactoryTest >> testDetermineEndPoint [
 ACApiFactoryTest >> testEndPointFor [
 
 	self
-		assert: (factory endPointFor: 'getProducts') class
+		assert: (factory endPointFor: 'getProduct')
 		equals: ACProductEndPoint.
 	self
-		assert: (factory endPointFor: 'getSubProducts') class
+		assert: (factory endPointFor: 'getSubProduct') 
 		equals: ACSubProductEndPoint
 ]

@@ -57,80 +57,94 @@ ACApi >> apiKey: anApiKey [
 ]
 
 { #category : #accessing }
-ACApi >> createProducts: aProductCollection [
+ACApi >> createProduct: aProductCollection [
 
 	^ (ACApiFactory endPointFor: thisContext selector) new create: aProductCollection
 ]
 
 { #category : #accessing }
-ACApi >> createSubProducts: aSubProductCollection [
+ACApi >> createSubProduct: aSubProductCollection [
 
 	^ (ACApiFactory endPointFor: thisContext selector) new create:
 		  aSubProductCollection
 ]
 
 { #category : #accessing }
-ACApi >> deleteProducts: aProductCollection [
+ACApi >> deleteProduct: aProductCollection [
 
 	^ (ACApiFactory endPointFor: thisContext selector) new delete: aProductCollection
 ]
 
 { #category : #accessing }
-ACApi >> getApiKeys [
+ACApi >> getApiKey [
 
-	^ (ACApiFactory endPointFor: thisContext selector) new get
+	^ ((ACApiFactory endPointFor: thisContext selector) 
+	withUrl: url
+		   andApiKey: apiKey) get
 ]
 
 { #category : #accessing }
-ACApi >> getAuditLogs [
+ACApi >> getAuditLog [
 
-	^ (ACApiFactory endPointFor: thisContext selector) new get
+	^ ((ACApiFactory endPointFor: thisContext selector) 
+	withUrl: url
+		   andApiKey: apiKey) get
 ]
 
 { #category : #accessing }
-ACApi >> getProductTypes [
-
-	^ (ACApiFactory endPointFor: thisContext selector) new get
-]
-
-{ #category : #accessing }
-ACApi >> getProducts [
+ACApi >> getProduct [
 
 	^ ((ACApiFactory endPointFor: thisContext selector) withUrl: url andApiKey: apiKey) get
 ]
 
 { #category : #accessing }
-ACApi >> getProductsElastic [
+ACApi >> getProductElastic [
 
-	^ ACApiFactory endPointFor: thisContext selector
+	^ ((ACApiFactory endPointFor: thisContext selector)
+		   withUrl: url
+		   andApiKey: apiKey) get
 ]
 
 { #category : #accessing }
-ACApi >> getProjects [
+ACApi >> getProductType [
 
-	^ (ACApiFactory endPointFor: thisContext selector)new get
+	^ ((ACApiFactory endPointFor: thisContext selector) 
+	withUrl: url
+		   andApiKey: apiKey) get
 ]
 
 { #category : #accessing }
-ACApi >> getSubProductTypes [
+ACApi >> getProject [
+
+	^ ((ACApiFactory endPointFor: thisContext selector) 
+	withUrl: url
+		   andApiKey: apiKey) get
+]
+
+{ #category : #accessing }
+ACApi >> getSubProduct [
+
+	^ ((ACApiFactory endPointFor: thisContext selector) 
+		   withUrl: url
+		   andApiKey: apiKey) get
+]
+
+{ #category : #accessing }
+ACApi >> getSubProductElastic [
 
 	^ (ACApiFactory endPointFor: thisContext selector) new get
 ]
 
 { #category : #accessing }
-ACApi >> getSubProducts [
+ACApi >> getSubProductType [
 
-	^ (ACApiFactory endPointFor: thisContext selector) new get
+	^ ((ACApiFactory endPointFor: thisContext selector) 
+	withUrl: url
+		   andApiKey: apiKey) get
 ]
 
 { #category : #accessing }
-ACApi >> getSubProductsElastic [
-
-	^ (ACApiFactory endPointFor: thisContext selector) new get
-]
-
-{ #category : #accessing }
-ACApi >> updateProducts: aProductCollection [
+ACApi >> updateProduct: aProductCollection [
 
 	^ (ACApiFactory endPointFor: thisContext selector) new update: aProductCollection
 ]

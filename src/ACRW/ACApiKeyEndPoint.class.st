@@ -1,11 +1,11 @@
 Class {
-	#name : #ACProjectEndPoint,
+	#name : #ACApiKeyEndPoint,
 	#superclass : #ACApiEndpoint,
 	#category : #'ACRW-Endpoints'
 }
 
 { #category : #configuration }
-ACProjectEndPoint >> pathBlock [
+ACApiKeyEndPoint >> pathBlock [
 
-	^ [ :c | c path: '/user/project' ]
+	^ [ :c | c path: '/user/apikey' ]
 ]

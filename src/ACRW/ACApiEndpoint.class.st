@@ -36,21 +36,29 @@ ACApiEndpoint >> create: aCollection [
 ]
 
 { #category : #'actions api' }
-ACApiEndpoint >> delete [
-
-	^ self subclassResponsibility 
-]
-
-{ #category : #'actions api' }
 ACApiEndpoint >> delete: aCollection [
 
-	^ self subclassResponsibility
+^ [ :c |
+	  c
+		  method: #DELETE;
+		  contentReader: nil;
+		  contentWriter: nil;
+		  accept: ZnMimeType any ]
 ]
 
 { #category : #'actions api' }
 ACApiEndpoint >> get [
 
-	^ self subclassResponsibility 
+	^ httpClient get
+]
+
+{ #category : #'actions api' }
+ACApiEndpoint >> getBlock [ 
+
+^ [ :c |
+	  c
+		  forJsonREST;
+		  method: #GET ]
 ]
 
 { #category : #initialization }
@@ -60,9 +68,9 @@ ACApiEndpoint >> initialize [
 ]
 
 { #category : #'actions api' }
-ACApiEndpoint >> patch [
+ACApiEndpoint >> patch: aCollection [
 
-	^ self subclassResponsibility 
+	^ [  ]
 ]
 
 { #category : #configuration }
@@ -72,15 +80,15 @@ ACApiEndpoint >> pathBlock [
 ]
 
 { #category : #'actions api' }
-ACApiEndpoint >> post [
+ACApiEndpoint >> post: aCollection [
 
-	^ self subclassResponsibility 
+	^ [  ]
 ]
 
 { #category : #'actions api' }
-ACApiEndpoint >> put [
+ACApiEndpoint >> put: aCollection [
 
-	^ self subclassResponsibility 
+	^ [  ]
 ]
 
 { #category : #'actions api' }

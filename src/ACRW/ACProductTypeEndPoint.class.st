@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ACProductTypeEndPoint >> setPath [
+ACProductTypeEndPoint >> pathBlock [
 
-	^ [:c | c path: '/user/product-type']
+	^ [ :c | c path: '/user/product-type' ]
 ]

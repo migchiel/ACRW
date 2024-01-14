@@ -10,7 +10,7 @@ ACScript >> getAllApiKeys [
 	<script: 'self new getAllApiKeys'>
 	| acapi |
 	acapi := ACApi new.
-	(acapi getApiKeys collect: #name) inspect
+	(acapi getApiKey collect: #name) inspect
 ]
 
 { #category : #scripting }
@@ -19,7 +19,7 @@ ACScript >> getAllProductTypes [
 	<script: 'self new getAllProductTypes'>
 	| acapi |
 	acapi := ACApi new.
-	(acapi getProductTypes collect: #name) inspect
+	(acapi getProductType collect: #name) inspect
 ]
 
 { #category : #scripting }
@@ -28,7 +28,7 @@ ACScript >> getAllProducts [
 	<script: 'self new getAllProducts'>
 	| acapi |
 	acapi := ACApi new.
-	(acapi getProducts collect: #name) inspect
+	(acapi getProduct collect: #name) inspect
 ]
 
 { #category : #scripting }
@@ -37,5 +37,5 @@ ACScript >> getAllSubProducts [
 	<script: 'self new getAllSubProducts'>
 	| acapi |
 	acapi := ACApi new.
-	(acapi getSubProducts collect: #name) inspect
+	(acapi getSubProduct collect: #name) inspect
 ]

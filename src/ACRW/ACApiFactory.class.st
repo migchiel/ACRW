@@ -13,7 +13,7 @@ ACApiFactory class >> determineAction: aString [
 { #category : #'as yet unclassified' }
 ACApiFactory class >> determineEndPoint: aString [
 
-	^ (aString trimLeft: #isLowercase) allButLast
+	^ aString trimLeft: #isLowercase
 ]
 
 { #category : #'as yet unclassified' }

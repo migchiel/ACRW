@@ -79,7 +79,6 @@ ACHttpClient >> get [
 
 	apiEndPoint pathBlock value: znClient.
 	apiEndPoint getBlock value: znClient.
-	znClient inspect.
 	^ self executeRequest
 ]
 
@@ -89,8 +88,7 @@ ACHttpClient >> initialize [
 	signalProgress := false.
 	znClient := self createZnClient.
 	znClient url: apiEndPoint url.
-	znClient setBearerAuthentication: apiEndPoint apiToken 
-	
+	znClient setBearerAuthentication: apiEndPoint apiKey
 ]
 
 { #category : #'as yet unclassified' }
