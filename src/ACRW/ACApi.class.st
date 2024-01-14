@@ -56,7 +56,7 @@ ACApi >> apiKey: anApiKey [
 	apiKey := anApiKey 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #construction }
 ACApi >> createApiEndPoint: anEndPointMethod [
 
 ^ ((ACApiFactory endPointFor: anEndPointMethod)

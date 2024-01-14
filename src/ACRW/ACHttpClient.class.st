@@ -101,13 +101,6 @@ ACHttpClient >> initialize [
 	znClient setBearerAuthentication: apiEndPoint apiKey
 ]
 
-{ #category : #'as yet unclassified' }
-ACHttpClient >> performRequest: anApiEndPoint [
-
-	^ apiEndPoint get.
-	
-]
-
 { #category : #'actions api' }
 ACHttpClient >> post [
 

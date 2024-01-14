@@ -39,13 +39,21 @@ ACApiEndpoint >> content [
 { #category : #'actions api' }
 ACApiEndpoint >> create: aCollection [
 
-	^ self subclassResponsibility
+	content := aCollection.
+	^ httpClient post
 ]
 
 { #category : #'as yet unclassified' }
 ACApiEndpoint >> createContentBlock [
 
 	^ [ :c :d | c contents: d ]
+]
+
+{ #category : #'actions api' }
+ACApiEndpoint >> delete: aCollection [
+
+	content := aCollection.
+	^ httpClient delete
 ]
 
 { #category : #'actions api' }
@@ -87,12 +95,6 @@ ACApiEndpoint >> initialize [
 	httpClient := ACHttpClient with: self
 ]
 
-{ #category : #'actions api' }
-ACApiEndpoint >> patch: aCollection [
-
-	^ [  ]
-]
-
 { #category : #configuration }
 ACApiEndpoint >> pathBlock [ 
 
@@ -117,10 +119,11 @@ ACApiEndpoint >> putBlock [
 		  method: #PUT ]
 ]
 
-{ #category : #'actions api' }
+{ #category : #updating }
 ACApiEndpoint >> update: aCollection [
 
-	^ self subclassResponsibility
+	content := aCollection.
+	^ httpClient put
 ]
 
 { #category : #accessing }

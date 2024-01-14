@@ -118,7 +118,6 @@ ACApiTest >> testGetSubProducts [
 ACApiTest >> testUpdateProducts [
 
 	| testCollection testResults |
-	true ifTrue: [ ^ self skip ].
 	testCollection := Array with: self newProduct.
 	testResults := acapi createProduct: testCollection.
 	self assert: testResults size equals: 1.
