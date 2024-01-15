@@ -65,85 +65,85 @@ ACApi >> createApiEndPoint: anEndPointMethod [
 ]
 
 { #category : #accessing }
-ACApi >> createProduct: aProductCollection [
+ACApi >> createProducts: aProductCollection [
 
-	^ (self createApiEndPoint: thisContext selector)  create: aProductCollection
+	^ (self createApiEndPoint: #Product) create:
+		  aProductCollection
 ]
 
 { #category : #accessing }
-ACApi >> createSubProduct: aSubProductCollection [
+ACApi >> createSubProducts: aSubProductCollection [
 
-	^ (ACApiFactory endPointFor: thisContext selector) create:
+	^ (self createApiEndPoint: #SubProduct) create:
 		  aSubProductCollection
 ]
 
 { #category : #accessing }
-ACApi >> deleteProduct: aProductCollection [
+ACApi >> deleteProducts: aProductCollection [
 
-	^ (self createApiEndPoint: thisContext selector) delete: aProductCollection
+	^ (self createApiEndPoint: #Product) delete:
+		  aProductCollection
 ]
 
 { #category : #accessing }
-ACApi >> getApiKey [
+ACApi >> getApiKeys [
 
-	^ (self createApiEndPoint: thisContext selector)
-		   get
+	^ (self createApiEndPoint: #ApiKey) get
 ]
 
 { #category : #accessing }
-ACApi >> getAuditLog [
+ACApi >> getAuditLogs [
 
-	^ (self createApiEndPoint: thisContext selector) get
+	^ (self createApiEndPoint: #AuditLog) get
 ]
 
 { #category : #accessing }
-ACApi >> getProduct [
+ACApi >> getProductTypes [
 
-	^ (self createApiEndPoint: thisContext selector) get
+	^ (self createApiEndPoint: #ProductType) get
 ]
 
 { #category : #accessing }
-ACApi >> getProductElastic [
+ACApi >> getProducts [
 
-	^ (self createApiEndPoint: thisContext selector)
-		   get
+	^ (self createApiEndPoint: #Product) get
 ]
 
 { #category : #accessing }
-ACApi >> getProductType [
+ACApi >> getProductsElastic [
 
-	^ (self createApiEndPoint: thisContext selector)
-		    get
+	^ (self createApiEndPoint: #ProductElastic) get
 ]
 
 { #category : #accessing }
-ACApi >> getProject [
+ACApi >> getProjects [
 
-	^ (self createApiEndPoint: thisContext selector) get
+	^ (self createApiEndPoint: #Project) get
 ]
 
 { #category : #accessing }
-ACApi >> getSubProduct [
+ACApi >> getSubProductTypes [
 
-	^ (self createApiEndPoint: thisContext selector) get
+	^ (self createApiEndPoint: #SubProductType) get
 ]
 
 { #category : #accessing }
-ACApi >> getSubProductElastic [
+ACApi >> getSubProducts [
 
-	^ (self createApiEndPoint: thisContext selector) new get
+	^ (self createApiEndPoint: #SubProduct) get
 ]
 
 { #category : #accessing }
-ACApi >> getSubProductType [
+ACApi >> getSubProductsElastic [
 
-	^ (self createApiEndPoint: thisContext selector) get
+	^ (self createApiEndPoint: #SubProductElastic) get
 ]
 
 { #category : #accessing }
-ACApi >> updateProduct: aProductCollection [
+ACApi >> updateProducts: aProductCollection [
 
-	^ (self createApiEndPoint: thisContext selector) update: aProductCollection
+	^ (self createApiEndPoint: #Product) update:
+		  aProductCollection
 ]
 
 { #category : #accessing }

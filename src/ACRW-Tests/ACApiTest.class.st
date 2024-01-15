@@ -46,18 +46,17 @@ ACApiTest >> testCreateDeleteProducts [
 	| testCollection testResults |
 	self longTestCase.
 	testCollection := Array with: self newProduct.
-	testResults := acapi createProduct: testCollection.
+	testResults := acapi createProducts: testCollection.
 	self assert: testResults size equals: 1.
 	4 seconds wait.
-	acapi deleteProduct: testResults
+	acapi deleteProducts: testResults
 ]
 
 { #category : #test }
 ACApiTest >> testGetApiKeys [
 
 	| keys |
-
-	keys := acapi getApiKey.
+	keys := acapi getApiKeys.
 	self assert: (keys anySatisfy: [ :key |
 			 key initials = ACRWResource apiKeyfingerPrint ])
 ]
@@ -66,52 +65,57 @@ ACApiTest >> testGetApiKeys [
 ACApiTest >> testGetApiKeysHttp429 [
 
 	| keys |
-	10 timesRepeat: [ keys := acapi getApiKey ].
-	self assert:
-		(keys anySatisfy: [ :key | key initials = ACRWResource apiKeyfingerPrint ])
+	10 timesRepeat: [ keys := acapi getApiKeys ].
+	self assert: (keys anySatisfy: [ :key |
+			 key initials = ACRWResource apiKeyfingerPrint ])
 ]
 
 { #category : #test }
 ACApiTest >> testGetAuditLogEntries [
 
-	self assert: acapi getAuditLog content size equals: 100
+	self assert: acapi getAuditLogs size equals: 100
+]
+
+{ #category : #test }
+ACApiTest >> testGetAuditLogs [
+
+	self assert: acapi getAuditLogs size equals: 100
 ]
 
 { #category : #test }
 ACApiTest >> testGetProductTypes [
 
-	self assert: acapi getProductType size equals: 6
+	self assert: acapi getProductTypes size equals: 6
 ]
 
 { #category : #test }
 ACApiTest >> testGetProducts [
 
-	self assert: acapi getProduct size equals: 1
-		
+	self assert: acapi getProducts size equals: 1
 ]
 
 { #category : #test }
 ACApiTest >> testGetProductsElastic [
 
-	self assert: acapi getProductElastic size equals: 11
+	self assert: acapi getProductsElastic size equals: 11
 ]
 
 { #category : #test }
 ACApiTest >> testGetProjects [
 
-	self assert: acapi getProject size equals: 1
+	self assert: acapi getProjects size equals: 1
 ]
 
 { #category : #test }
 ACApiTest >> testGetSubProductTypes [
 
-	self assert: acapi getSubProductType size equals: 10
+	self assert: acapi getSubProductTypes size equals: 10
 ]
 
 { #category : #test }
 ACApiTest >> testGetSubProducts [
 
-	self assert: acapi getSubProduct size equals: 0
+	self assert: acapi getSubProducts size equals: 0
 ]
 
 { #category : #test }
@@ -119,17 +123,17 @@ ACApiTest >> testUpdateProducts [
 
 	| testCollection testResults |
 	testCollection := Array with: self newProduct.
-	testResults := acapi createProduct: testCollection.
+	testResults := acapi createProducts: testCollection.
 	self assert: testResults size equals: 1.
 	self
 		assert: testResults first description
 		equals: self newProductDescription.
 	testResults first description:
 		testResults first description asUppercase.
-	testResults := acapi updateProduct: testResults.
+	testResults := acapi updateProducts: testResults.
 	self assert: testResults size equals: 1.
 	self
 		assert: testResults first description
 		equals: self newProductDescription asUppercase.
-	acapi deleteProduct: testResults
+	acapi deleteProducts: testResults
 ]

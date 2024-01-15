@@ -75,6 +75,12 @@ ACApiEndpoint >> deleteContentBlock [
 ]
 
 { #category : #'actions api' }
+ACApiEndpoint >> deleteResponseBlock [
+
+	^ [ :r | r ]
+]
+
+{ #category : #'actions api' }
 ACApiEndpoint >> get [
 
 	^ httpClient get
@@ -87,6 +93,12 @@ ACApiEndpoint >> getBlock [
 	  c
 		  forJsonREST;
 		  method: #GET ]
+]
+
+{ #category : #'actions api' }
+ACApiEndpoint >> getResponseBlock [
+
+	^ [ :r | r ]
 ]
 
 { #category : #initialization }
@@ -111,12 +123,24 @@ ACApiEndpoint >> postBlock [
 ]
 
 { #category : #'actions api' }
+ACApiEndpoint >> postResponseBlock [
+
+	^ [ :r | r ]
+]
+
+{ #category : #'actions api' }
 ACApiEndpoint >> putBlock [
 
 	^ [ :c |
 	  c
 		  forJsonREST;
 		  method: #PUT ]
+]
+
+{ #category : #'actions api' }
+ACApiEndpoint >> putResponseBlock [
+
+	^ [ :r | r ]
 ]
 
 { #category : #updating }

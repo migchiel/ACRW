@@ -62,9 +62,9 @@ ACHttpClient >> delete [
 
 	apiEndPoint deleteBlock value: znClient.
 	^ apiEndPoint content collect: [ :item |
-			apiEndPoint pathBlock value: znClient.
+		  apiEndPoint pathBlock value: znClient.
 		  apiEndPoint deleteContentBlock value: znClient value: item.
-		  znClient execute ]
+		  apiEndPoint deleteResponseBlock value: znClient execute ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -89,7 +89,7 @@ ACHttpClient >> get [
 
 	apiEndPoint pathBlock value: znClient.
 	apiEndPoint getBlock value: znClient.
-	^ self executeRequest
+	^ apiEndPoint getResponseBlock value: self executeRequest
 ]
 
 { #category : #initialization }
@@ -108,7 +108,7 @@ ACHttpClient >> post [
 	apiEndPoint postBlock value: znClient.
 	^ apiEndPoint content collect: [ :item |
 		  apiEndPoint createContentBlock value: znClient value: item.
-		  znClient execute ]
+		  apiEndPoint postResponseBlock value: znClient execute ]
 ]
 
 { #category : #'actions api' }
@@ -118,7 +118,7 @@ ACHttpClient >> put [
 	apiEndPoint putBlock value: znClient.
 	^ apiEndPoint content collect: [ :item |
 		  apiEndPoint createContentBlock value: znClient value: item.
-		  znClient execute ]
+		  apiEndPoint putResponseBlock value: znClient execute ]
 ]
 
 { #category : #'as yet unclassified' }
