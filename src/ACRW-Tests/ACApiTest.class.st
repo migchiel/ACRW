@@ -49,7 +49,8 @@ ACApiTest >> testCreateDeleteProducts [
 	testResults := acapi createProducts: testCollection.
 	self assert: testResults size equals: 1.
 	4 seconds wait.
-	acapi deleteProducts: testResults
+	acapi deleteProducts: testResults.
+	4 seconds wait.
 ]
 
 { #category : #test }
