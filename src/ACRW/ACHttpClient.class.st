@@ -21,20 +21,40 @@ ACHttpClient >> apiEndPoint: anApiEndPoint [
 	apiEndPoint := anApiEndPoint 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ACHttpClient >> apiKey: anApiKeyString [
 
 	znClient setBearerAuthentication: anApiKeyString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'connection open/close' }
 ACHttpClient >> apiLimitDelay [
 	"retry wait time for HTTP 429, api rate limit (in seconds)"
 
 	^ 64
 ]
 
+{ #category : #'actions api' }
+ACHttpClient >> applyOperationConfigBlock: anOperation [
+
+	(apiEndPoint perform: (anOperation asLowercase , #Block) asSymbol)
+		value: znClient
+]
+
+{ #category : #'actions api' }
+ACHttpClient >> applyOperationResponseBlock: anOperation [
+
+	^ apiEndPoint perform:
+		  (anOperation asLowercase , #ResponseBlock) asSymbol
+]
+
 { #category : #'as yet unclassified' }
+ACHttpClient >> applyPathBlock [
+
+	apiEndPoint pathBlock value: znClient
+]
+
+{ #category : #'connection open/close' }
 ACHttpClient >> clientExecute [
 
 	^ znClient
@@ -60,14 +80,15 @@ ACHttpClient >> createZnClient [
 { #category : #'actions api' }
 ACHttpClient >> delete [
 
-	apiEndPoint deleteBlock value: znClient.
 	^ apiEndPoint content collect: [ :item |
-		  apiEndPoint pathBlock value: znClient.
+		  self applyPathBlock.
+		  self applyOperationConfigBlock: #DELETE.
 		  apiEndPoint deleteContentBlock value: znClient value: item.
-		  apiEndPoint deleteResponseBlock value: znClient execute ]
+		  (self applyOperationResponseBlock: #DELETE) value:
+			  self executeRequest ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'connection open/close' }
 ACHttpClient >> executeRequest [
 
 	znClient signalProgress: signalProgress.
@@ -87,9 +108,9 @@ ACHttpClient >> executeRequest [
 { #category : #'actions api' }
 ACHttpClient >> get [
 
-	apiEndPoint pathBlock value: znClient.
-	apiEndPoint getBlock value: znClient.
-	^ apiEndPoint getResponseBlock value: self executeRequest
+	self applyPathBlock.
+	self applyOperationConfigBlock: #GET.
+	^ (self applyOperationResponseBlock: #GET) value: self executeRequest
 ]
 
 { #category : #initialization }
@@ -102,26 +123,30 @@ ACHttpClient >> initialize [
 ]
 
 { #category : #'actions api' }
-ACHttpClient >> post [
+ACHttpClient >> performOperation: anOperation [
 
-	apiEndPoint pathBlock value: znClient.
-	apiEndPoint postBlock value: znClient.
+	self applyPathBlock.
+	self applyOperationConfigBlock: anOperation.
 	^ apiEndPoint content collect: [ :item |
 		  apiEndPoint createContentBlock value: znClient value: item.
-		  apiEndPoint postResponseBlock value: znClient execute ]
+		  (self applyOperationResponseBlock: anOperation) value:
+			  self executeRequest ]
+]
+
+{ #category : #'actions api' }
+ACHttpClient >> post [
+
+	^ self performOperation: #POST
+	
 ]
 
 { #category : #'actions api' }
 ACHttpClient >> put [
 
-	apiEndPoint pathBlock value: znClient.
-	apiEndPoint putBlock value: znClient.
-	^ apiEndPoint content collect: [ :item |
-		  apiEndPoint createContentBlock value: znClient value: item.
-		  apiEndPoint putResponseBlock value: znClient execute ]
+	^ self performOperation: #PUT
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'connection open/close' }
 ACHttpClient >> recoverFromApiLimit [
 
 	1 to: self apiLimitDelay do: [ :each |
