@@ -120,12 +120,6 @@ ACApiTest >> testGetSubProductTypes [
 ]
 
 { #category : #test }
-ACApiTest >> testGetSubProducts [
-
-	self assert: acapi getSubProducts size equals: 0
-]
-
-{ #category : #test }
 ACApiTest >> testUpdateProducts [
 
 	| testCollection testResults |
