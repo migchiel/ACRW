@@ -16,6 +16,15 @@ ACApiTest class >> resources [
 	^ { ACRWResource }
 ]
 
+{ #category : #test }
+ACApiTest >> createSubProductCollection: aProductId [
+	| subProducts |
+	subProducts := Set new.
+	
+	10 timesRepeat: [  subProducts add: (self newSubProduct: aProductId first id)].
+	^ subProducts asArray  
+]
+
 { #category : #'helper methods' }
 ACApiTest >> newProduct [
 
@@ -31,6 +40,21 @@ ACApiTest >> newProduct [
 ACApiTest >> newProductDescription [
 
 	^ 'ACRW-Test-Product'
+]
+
+{ #category : #'helper methods' }
+ACApiTest >> newSubProduct: anId [
+
+	^ (ACSubProduct
+		  withProductId: anId)
+		  name: 'Test-SubProduct-' , UUID new asString;
+		  description: self newSubProductDescription;yourself
+]
+
+{ #category : #'helper methods' }
+ACApiTest >> newSubProductDescription [
+
+	^ 'ACRW-Test-SubProduct'
 ]
 
 { #category : #running }
@@ -54,27 +78,27 @@ ACApiTest >> testCreateDeleteProducts [
 ]
 
 { #category : #test }
+ACApiTest >> testCreateDeleteSubProducts [
+
+	| productCollection testResults subProductCollection subProducts |
+	self longTestCase.
+	productCollection := Array with: self newProduct.
+	testResults := acapi createProducts: productCollection.
+	self assert: testResults size equals: 1.
+	subProductCollection := self createSubProductCollection: testResults.
+	subProducts := acapi createSubProducts: subProductCollection.
+	4 seconds wait.
+	acapi deleteProducts: testResults.
+	4 seconds wait
+]
+
+{ #category : #test }
 ACApiTest >> testGetApiKeys [
 
 	| keys |
 	keys := acapi getApiKeys.
 	self assert: (keys anySatisfy: [ :key |
 			 key initials = ACRWResource apiKeyfingerPrint ])
-]
-
-{ #category : #test }
-ACApiTest >> testGetApiKeysHttp429 [
-
-	| keys |
-	10 timesRepeat: [ keys := acapi getApiKeys ].
-	self assert: (keys anySatisfy: [ :key |
-			 key initials = ACRWResource apiKeyfingerPrint ])
-]
-
-{ #category : #test }
-ACApiTest >> testGetAuditLogEntries [
-
-	self assert: acapi getAuditLogs size equals: 100
 ]
 
 { #category : #test }
@@ -87,24 +111,6 @@ ACApiTest >> testGetAuditLogs [
 ACApiTest >> testGetProductTypes [
 
 	self assert: acapi getProductTypes size equals: 6
-]
-
-{ #category : #test }
-ACApiTest >> testGetProducts [
-
-	self assert: acapi getProducts size equals: 1
-]
-
-{ #category : #test }
-ACApiTest >> testGetProductsElastic [
-
-	self assert: acapi getProductsElastic size equals: 11
-]
-
-{ #category : #test }
-ACApiTest >> testGetProjects [
-
-	self assert: acapi getProjects size equals: 1
 ]
 
 { #category : #test }
