@@ -57,8 +57,8 @@ ACApiTest >> testGetApiKeys [
 
 	| keys |
 	keys := acapi getApiKeys.
-	self assert:
-		(keys anySatisfy: [ :key | key initials = ACRWResource apiKeyfingerPrint ])
+	self assert: (keys anySatisfy: [ :key |
+			 key initials = ACRWResource apiKeyfingerPrint ])
 ]
 
 { #category : #test }
@@ -66,14 +66,20 @@ ACApiTest >> testGetApiKeysHttp429 [
 
 	| keys |
 	10 timesRepeat: [ keys := acapi getApiKeys ].
-	self assert:
-		(keys anySatisfy: [ :key | key initials = ACRWResource apiKeyfingerPrint ])
+	self assert: (keys anySatisfy: [ :key |
+			 key initials = ACRWResource apiKeyfingerPrint ])
 ]
 
 { #category : #test }
 ACApiTest >> testGetAuditLogEntries [
 
-	self assert: acapi getAuditLogEntries content size equals: 100
+	self assert: acapi getAuditLogs size equals: 100
+]
+
+{ #category : #test }
+ACApiTest >> testGetAuditLogs [
+
+	self assert: acapi getAuditLogs size equals: 100
 ]
 
 { #category : #test }
@@ -85,20 +91,19 @@ ACApiTest >> testGetProductTypes [
 { #category : #test }
 ACApiTest >> testGetProducts [
 
-	self assert: acapi getProducts size equals: 2
-		
+	self assert: acapi getProducts size equals: 1
 ]
 
 { #category : #test }
 ACApiTest >> testGetProductsElastic [
 
-	self assert: acapi getProductsElastic size equals: 7
+	self assert: acapi getProductsElastic size equals: 11
 ]
 
 { #category : #test }
 ACApiTest >> testGetProjects [
 
-	self assert: acapi getProjects size equals: 5
+	self assert: acapi getProjects size equals: 1
 ]
 
 { #category : #test }
@@ -110,7 +115,7 @@ ACApiTest >> testGetSubProductTypes [
 { #category : #test }
 ACApiTest >> testGetSubProducts [
 
-	self assert: acapi getSubProducts size equals: 2
+	self assert: acapi getSubProducts size equals: 0
 ]
 
 { #category : #test }

@@ -2,12 +2,24 @@ Class {
 	#name : #ACHttpClient,
 	#superclass : #Object,
 	#instVars : [
-		'requestHelper',
 		'znClient',
-		'signalProgress'
+		'signalProgress',
+		'apiEndPoint'
 	],
 	#category : #'ACRW-Core'
 }
+
+{ #category : #'instance creation' }
+ACHttpClient class >> with: anApiEndPoint [
+
+	^ self basicNew apiEndPoint: anApiEndPoint;initialize
+]
+
+{ #category : #accessing }
+ACHttpClient >> apiEndPoint: anApiEndPoint [
+
+	apiEndPoint := anApiEndPoint 
+]
 
 { #category : #'as yet unclassified' }
 ACHttpClient >> apiKey: anApiKeyString [
@@ -35,7 +47,7 @@ ACHttpClient >> clientExecute [
 ]
 
 { #category : #initialization }
-ACHttpClient >> createHTTPClient [
+ACHttpClient >> createZnClient [
 
 	^ ZnClient new
 		  systemPolicy;
@@ -43,6 +55,16 @@ ACHttpClient >> createHTTPClient [
 		  signalProgress: false;
 		  autoResetEntityMethods: #( HEAD DELETE GET );
 		  logToTranscript
+]
+
+{ #category : #'actions api' }
+ACHttpClient >> delete [
+
+	apiEndPoint deleteBlock value: znClient.
+	^ apiEndPoint content collect: [ :item |
+		  apiEndPoint pathBlock value: znClient.
+		  apiEndPoint deleteContentBlock value: znClient value: item.
+		  apiEndPoint deleteResponseBlock value: znClient execute ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -62,31 +84,41 @@ ACHttpClient >> executeRequest [
 		ifFalse: [ ^ self clientExecute  ]
 ]
 
+{ #category : #'actions api' }
+ACHttpClient >> get [
+
+	apiEndPoint pathBlock value: znClient.
+	apiEndPoint getBlock value: znClient.
+	^ apiEndPoint getResponseBlock value: self executeRequest
+]
+
 { #category : #initialization }
 ACHttpClient >> initialize [
 
 	signalProgress := false.
-	znClient := self createHTTPClient.
-	requestHelper := ACRequestHelper for: znClient
+	znClient := self createZnClient.
+	znClient url: apiEndPoint url.
+	znClient setBearerAuthentication: apiEndPoint apiKey
 ]
 
-{ #category : #'as yet unclassified' }
-ACHttpClient >> performRequest: anApiEndPoint [
+{ #category : #'actions api' }
+ACHttpClient >> post [
 
-	requestHelper configureConnectionFor: anApiEndPoint.
-	^ (requestHelper processResponseFor: anApiEndPoint) value: self executeRequest.
-	
+	apiEndPoint pathBlock value: znClient.
+	apiEndPoint postBlock value: znClient.
+	^ apiEndPoint content collect: [ :item |
+		  apiEndPoint createContentBlock value: znClient value: item.
+		  apiEndPoint postResponseBlock value: znClient execute ]
 ]
 
-{ #category : #'as yet unclassified' }
-ACHttpClient >> performRequest: anApiEndPoint with: aCollection [
+{ #category : #'actions api' }
+ACHttpClient >> put [
 
-	requestHelper configureConnectionFor: anApiEndPoint.
-	^ aCollection collect: [ :item |
-		             requestHelper
-			             prepareWith: item
-			             for: anApiEndPoint.
-		             self executeRequest ]
+	apiEndPoint pathBlock value: znClient.
+	apiEndPoint putBlock value: znClient.
+	^ apiEndPoint content collect: [ :item |
+		  apiEndPoint createContentBlock value: znClient value: item.
+		  apiEndPoint putResponseBlock value: znClient execute ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -106,10 +138,4 @@ ACHttpClient >> recoverFromApiLimit [
 ACHttpClient >> url: aUrl [
 
 	znClient url: aUrl
-]
-
-{ #category : #accessing }
-ACHttpClient >> znClient [
-
-	^ znClient
 ]

@@ -2,7 +2,8 @@ Class {
 	#name : #ACApi,
 	#superclass : #Object,
 	#instVars : [
-		'httpClient'
+		'url',
+		'apiKey'
 	],
 	#category : #'ACRW-Core'
 }
@@ -17,11 +18,9 @@ ACApi class >> apiTokenFromEnvironment [
 ACApi class >> connectTo: aUrl withApiKey: anApiKey [
 
 	| acapi |
-	acapi := self basicNew.
-	acapi initialize.
-	acapi httpClient
-		url: aUrl;
-		apiKey: anApiKey.
+	acapi := self basicNew
+		         url: aUrl;
+		         apiKey: anApiKey.
 	^ acapi
 ]
 
@@ -52,85 +51,103 @@ ACApi class >> withApiKey: anApiKeyString [
 ]
 
 { #category : #accessing }
+ACApi >> apiKey: anApiKey [
+
+	apiKey := anApiKey 
+]
+
+{ #category : #construction }
+ACApi >> createApiEndPoint: anEndPointMethod [
+
+^ ((ACApiFactory endPointFor: anEndPointMethod)
+		   withUrl: url
+		   andApiKey: apiKey)
+]
+
+{ #category : #accessing }
 ACApi >> createProducts: aProductCollection [
 
-	^ httpClient performRequest: #createProducts with: aProductCollection
+	^ (self createApiEndPoint: #Product) create:
+		  aProductCollection
+]
+
+{ #category : #accessing }
+ACApi >> createSubProducts: aSubProductCollection [
+
+	^ (self createApiEndPoint: #SubProduct) create:
+		  aSubProductCollection
 ]
 
 { #category : #accessing }
 ACApi >> deleteProducts: aProductCollection [
 
-	^ httpClient performRequest: #deleteProducts with: aProductCollection
+	^ (self createApiEndPoint: #Product) delete:
+		  aProductCollection
 ]
 
 { #category : #accessing }
 ACApi >> getApiKeys [
 
-	^ httpClient performRequest: #getApiKeys
+	^ (self createApiEndPoint: #ApiKey) get
 ]
 
 { #category : #accessing }
-ACApi >> getAuditLogEntries [
+ACApi >> getAuditLogs [
 
-	^ httpClient performRequest: #getAuditLogEntries 
+	^ (self createApiEndPoint: #AuditLog) get
 ]
 
 { #category : #accessing }
 ACApi >> getProductTypes [
 
-	^ httpClient performRequest: #getProductTypes
+	^ (self createApiEndPoint: #ProductType) get
 ]
 
 { #category : #accessing }
 ACApi >> getProducts [
 
-	^ httpClient performRequest: #getProducts
+	^ (self createApiEndPoint: #Product) get
 ]
 
 { #category : #accessing }
 ACApi >> getProductsElastic [
 
-	^ httpClient performRequest: #getProductsElastic
+	^ (self createApiEndPoint: #ProductElastic) get
 ]
 
 { #category : #accessing }
 ACApi >> getProjects [
 
-	^ httpClient performRequest: #getProjects
+	^ (self createApiEndPoint: #Project) get
 ]
 
 { #category : #accessing }
 ACApi >> getSubProductTypes [
 
-	^ httpClient performRequest: #getSubProductTypes
+	^ (self createApiEndPoint: #SubProductType) get
 ]
 
 { #category : #accessing }
 ACApi >> getSubProducts [
 
-	^ httpClient performRequest: #getSubProducts
+	^ (self createApiEndPoint: #SubProduct) get
 ]
 
 { #category : #accessing }
 ACApi >> getSubProductsElastic [
 
-	^ httpClient performRequest: #getSubProductsElastic
-]
-
-{ #category : #accessing }
-ACApi >> httpClient [
-
-	^ httpClient
-]
-
-{ #category : #initialization }
-ACApi >> initialize [
-
-	httpClient := ACHttpClient new
+	^ (self createApiEndPoint: #SubProductElastic) get
 ]
 
 { #category : #accessing }
 ACApi >> updateProducts: aProductCollection [
 
-	^ httpClient performRequest: #updateProducts with: aProductCollection
+	^ (self createApiEndPoint: #Product) update:
+		  aProductCollection
+]
+
+{ #category : #accessing }
+ACApi >> url: aUrl [
+
+	url := aUrl 
 ]
