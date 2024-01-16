@@ -28,7 +28,7 @@ ACApiTest >> createSubProductCollection: aProductId [
 { #category : #'helper methods' }
 ACApiTest >> newProduct [
 
-	^ NeoJSONObject new
+	^ ACProduct new
 		  name: 'Test-Product-' , UUID new asString;
 		  description: self newProductDescription;
 		  type: (NeoJSONObject new
@@ -110,7 +110,7 @@ ACApiTest >> testGetAuditLogs [
 { #category : #test }
 ACApiTest >> testGetProductTypes [
 
-	self assert: acapi getProductTypes size equals: 6
+	self assert: acapi getProductTypes size equals: 7
 ]
 
 { #category : #test }
