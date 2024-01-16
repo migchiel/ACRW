@@ -39,6 +39,7 @@ Metacello new
 If you want to load the minimal code base and the example scripts you can use this script.
 
 ```Smalltalk
+
 Metacello new
   repository: 'github://migchiel/ACRW/src';
   baseline: 'ACRW';
