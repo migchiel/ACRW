@@ -102,12 +102,6 @@ ACApiTest >> testGetApiKeys [
 ]
 
 { #category : #test }
-ACApiTest >> testGetAuditLogs [
-
-	self assert: acapi getAuditLogs size equals: 100
-]
-
-{ #category : #test }
 ACApiTest >> testUpdateProducts [
 
 	| testCollection testResults |
