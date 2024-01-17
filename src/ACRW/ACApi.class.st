@@ -92,9 +92,23 @@ ACApi >> getApiKeys [
 ]
 
 { #category : #accessing }
+ACApi >> getAuditLogFilters [
+
+	^ (self createApiEndPoint: #AuditLogFilter) get
+]
+
+{ #category : #accessing }
 ACApi >> getAuditLogs [
 
-	^ (self createApiEndPoint: #AuditLog) get
+	| logEntries allEntries pages endPoint |
+	allEntries := OrderedCollection new.
+	endPoint := self createApiEndPoint: #AuditLog.
+	logEntries := endPoint get.
+	allEntries add: logEntries content.
+	pages := logEntries totalPages - 1.
+	pages timesRepeat: [
+		allEntries add: endPoint get content ].
+	^ allEntries
 ]
 
 { #category : #accessing }

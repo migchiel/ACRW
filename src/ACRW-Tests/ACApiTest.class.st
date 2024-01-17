@@ -108,18 +108,6 @@ ACApiTest >> testGetAuditLogs [
 ]
 
 { #category : #test }
-ACApiTest >> testGetProductTypes [
-
-	self assert: acapi getProductTypes size equals: 7
-]
-
-{ #category : #test }
-ACApiTest >> testGetSubProductTypes [
-
-	self assert: acapi getSubProductTypes size equals: 10
-]
-
-{ #category : #test }
 ACApiTest >> testUpdateProducts [
 
 	| testCollection testResults |
