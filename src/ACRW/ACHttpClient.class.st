@@ -54,6 +54,12 @@ ACHttpClient >> applyPathBlock [
 	apiEndPoint pathBlock value: znClient
 ]
 
+{ #category : #'as yet unclassified' }
+ACHttpClient >> applyQueryBlock [
+
+	apiEndPoint queryBlock value: znClient
+]
+
 { #category : #'connection open/close' }
 ACHttpClient >> clientExecute [
 
@@ -74,15 +80,15 @@ ACHttpClient >> createZnClient [
 		  logLevel: 3;
 		  signalProgress: false;
 		  autoResetEntityMethods: #( HEAD DELETE GET );
-		  logToTranscript
+		  logToTranscript;yourself
 ]
 
 { #category : #'actions api' }
 ACHttpClient >> delete [
 
 	^ apiEndPoint content collect: [ :item |
-		  self applyPathBlock.
-		  self applyOperationConfigBlock: #DELETE.
+		  self applyPathBlock;
+		  applyOperationConfigBlock: #DELETE.
 		  apiEndPoint deleteContentBlock value: znClient value: item.
 		  (self applyOperationResponseBlock: #DELETE) value:
 			  self executeRequest ]
@@ -108,8 +114,9 @@ ACHttpClient >> executeRequest [
 { #category : #'actions api' }
 ACHttpClient >> get [
 
-	self applyPathBlock.
-	self applyOperationConfigBlock: #GET.
+	self applyPathBlock;
+	applyQueryBlock;
+	applyOperationConfigBlock: #GET.
 	^ (self applyOperationResponseBlock: #GET) value: self executeRequest
 ]
 
@@ -118,15 +125,14 @@ ACHttpClient >> initialize [
 
 	signalProgress := false.
 	znClient := self createZnClient.
-	znClient url: apiEndPoint url.
-	znClient setBearerAuthentication: apiEndPoint apiKey
+	znClient url: apiEndPoint url;setBearerAuthentication: apiEndPoint apiKey
 ]
 
 { #category : #'actions api' }
 ACHttpClient >> performOperation: anOperation [
 
-	self applyPathBlock.
-	self applyOperationConfigBlock: anOperation.
+	self applyPathBlock;
+	applyOperationConfigBlock: anOperation.
 	^ apiEndPoint content collect: [ :item |
 		  apiEndPoint createContentBlock value: znClient value: item.
 		  (self applyOperationResponseBlock: anOperation) value:

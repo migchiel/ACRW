@@ -143,6 +143,12 @@ ACApiEndpoint >> putResponseBlock [
 	^ [ :r | r ]
 ]
 
+{ #category : #'actions api' }
+ACApiEndpoint >> queryBlock [
+
+	^ [ :c |  ]
+]
+
 { #category : #updating }
 ACApiEndpoint >> update: aCollection [
 
