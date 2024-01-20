@@ -1,4 +1,4 @@
-name: CI
+name: ACRW Build and Test
 
 env:
   acapi_token: ${{ secrets.ACAPI_TOKEN }}
