@@ -131,9 +131,11 @@ ACHttpClient >> initialize [
 { #category : #'actions api' }
 ACHttpClient >> performOperation: anOperation [
 
-	self applyPathBlock;
-	applyOperationConfigBlock: anOperation.
+	self
+		applyPathBlock;
+		applyOperationConfigBlock: anOperation.
 	^ apiEndPoint content collect: [ :item |
+			self applyQueryBlock.
 		  apiEndPoint createContentBlock value: znClient value: item.
 		  (self applyOperationResponseBlock: anOperation) value:
 			  self executeRequest ]
