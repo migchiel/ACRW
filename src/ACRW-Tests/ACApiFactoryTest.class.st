@@ -33,7 +33,7 @@ ACApiFactoryTest >> testDetermineEndPoint [
 		equals: 'SubProduct'
 ]
 
-{ #category : #test }
+{ #category : #tests }
 ACApiFactoryTest >> testEndPointFor [
 
 	self

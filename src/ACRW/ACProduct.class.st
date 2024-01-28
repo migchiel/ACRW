@@ -1,5 +1,5 @@
 Class {
 	#name : #ACProduct,
-	#superclass : #ACDto,
+	#superclass : #ACDTO,
 	#category : #'ACRW-DTO'
 }

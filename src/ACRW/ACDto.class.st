@@ -1,11 +1,11 @@
 Class {
-	#name : #ACDto,
+	#name : #ACDTO,
 	#superclass : #NeoJSONObject,
 	#category : #'ACRW-DTO'
 }
 
-{ #category : #accessing }
-ACDto >> name: aName [
+{ #category : #'accessing - variables' }
+ACDTO >> name: aName [
 
 	super name: aName
 ]

@@ -1,6 +1,6 @@
 Class {
 	#name : #ACSubProduct,
-	#superclass : #ACDto,
+	#superclass : #ACDTO,
 	#category : #'ACRW-DTO'
 }
 
@@ -17,7 +17,7 @@ ACSubProduct class >> withProductId: anId [
 		  product: anId
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'accessing - variables' }
 ACSubProduct >> product: aProductId [
 
 	super product: (NeoJSONObject new id: aProductId)
