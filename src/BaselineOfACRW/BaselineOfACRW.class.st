@@ -25,9 +25,9 @@ BaselineOfACRW >> setUpDependencies: spec [
 
 	spec
 		baseline: 'NeoJSON'
-		with: [ spec repository: 'https://svenvc/NeoJSON/repository' ];
+		with: [ spec repository: 'https://github.com/svenvc/NeoJSON.git' ];
 		baseline: 'ZTimestamp'
-		with: [ spec repository: 'https://svenvc/ztimestamp' ];
+		with: [ spec repository: 'https://github.com/svenvc/ztimestamp.git' ];
 		baseline: 'NeoCSV'
-		with: [ spec repository: 'https://svenvc/NeoCSV/repository' ]
+		with: [ spec repository: 'https://github.com/svenvc/NeoCSV.git' ]
 ]
